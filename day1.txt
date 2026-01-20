@@ -1,147 +1,334 @@
-1. Data: variables
-2. Logics: functions
+Any computer program mainly consists of two parts:
+
+1. Data → Variables
+
+2. Logic → Functions / Methods
+
+--Among these two, data is the most critical part, because:
+
+-Logic can be rewritten
+
+-But data loss or corruption is dangerous
+
+
+Problem with Procedural / Structured Programming:
+-------------------------------------------------
+
+In procedural or structured programming languages (like C/C++):
+
+--Data is often declared as global variables
+
+--Global variables can be accessed and modified by any function
+
+--This leads to high data insecurity
+
+Example: Banking Application (Procedural Style)
+
+
+// bankingApp.cpp
+
+string customerName;
+int accountNumber;
+int balance;
+string branchName;
+
+void withdraw(int amt) {
+    balance = balance - amt;
+}
+
+void deposit(int amt) {
+    balance = balance + amt;
+}
+
+void transferAmount(int src, int dest, int amt) {
+    // transfer logic
+}
+
+void login() {
+    // authentication & authorization
+}
+
+void logout() {
+}
+
+void changePassword() {
+    // unrelated function accessing unrelated data
+    balance = balance - 5000;
+}
+
+
+
+Problems in Above Code:
+-----------------------
+
+--balance is globally accessible
+
+--Any function (even unrelated ones) can modify it
+
+Example: changePassword() modifying balance
+
+Leads to:
+
+--Data corruption
+
+--Security issues
+
+--Poor maintainability
+
+
+To secure data, programmers designed a mechanism where:
+
+--Data and the functions that operate on that data are bound together inside a single unit.
+
+--This unit is called a Class.
+
+--This concept is known as Encapsulation.
+
+
+
+Object-Oriented Solution Using Encapsulation:
+---------------------------------------------
+
+
+class Account {
+
+    private String customerName;
+    private int accountNumber;
+    private int balance;
+    private String branchName;
+
+    void withdraw(int amt) {
+        balance = balance - amt;
+    }
+
+    void deposit(int amt) {
+        balance = balance + amt;
+    }
+
+    void transferAmount(int src, int dest, int amt) {
+        // transfer logic
+    }
+}
+
+
+class Authentication {
+
+    void login() {
+        // authentication & authorization
+    }
+
+    void logout() {
+    }
+
+    void changePassword() {
+        // cannot access Account balance directly
+    }
+}
+
+
+
+Key Observations:
+
+1. Data Security
+
+--balance is private
+
+--Cannot be accessed outside Account class
+
+--Only related methods can modify it
+
+2. Separation of Responsibility
+
+--Account → Financial operations
+
+--Authentication → Login / security operations
+
+3. No Global Variables
+
+--Variables inside a class are not global
+
+--They are also not local to a single method
+
+--Hence, they are called Instance Variables
+
+
+Pure Encapsulation:
+-------------------
+
+--A class is said to be purely encapsulated when all data members are declared as private.
+
+--Account class is a purely encapsulated class
+
+--It acts as a blueprint
+
+--Multiple objects (accounts) can be created with different states
+
+
+
+Definition of Encapsulation:
+-----------------------------
+
+--Encapsulation is the process of binding data along with its corresponding functionalities and restricting direct access to data to ensure security.
+
+
+
+Purpose of Encapsulation:
+-------------------------
+
+--Data security
+
+--Controlled access
+
+--Better maintainability
+
+--Modular design
+
+
+
+Java supports all the 4 pillers of  OOP concepts:
+
+1. Encapsulation
+
+2. Inheritance
+
+3. Polymorphism
+
+4. Abstraction
+
+Hence, Java is an Object-Oriented Programming language
+
+
+
+Note: C++ also supports encapsulation but it also allows:
+
+--Global variables
+
+--Global functions
+
+Therefore, C++ is not considered a pure OOP language
+
+--Java avoids this by forcing everything inside classes
+
+
+
+--Encapsulation was the first step in the evolution of OOP
+
+--It protects data from unauthorized access
+
+--It eliminates the problems of global variables
+
+--It forms the backbone of Object-Oriented Programming
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Out of both, data is most important part.
-
-But in structural or procedural programming language the data insucurity is very high due to the "global variable".
-
-bankingApp.cpp:
+JDK and OpenJDK:
 ----------------
 
+To develop and run a Java application, we need to install a software called the JDK (Java Development Kit).
 
-string customerName
-int accountNumber
-int balance
-string branchName
+--The official JDK is provided by Oracle through its website.
 
-void withdraw(int amt){
-//amt withdraw logic
-int balance = balance-amt
-}
+--Oracle JDK is free for development, but license required for some production use.
 
-void deposit(int amt){
-//amt deposit logic
-balance = balance+amt
-}
+--Apart from Oracle, many other vendors also provide their own JDK distributions.
 
-void transferAmount(int src, int dest, int amt){
-//transfer Amount logic
-}
+Some popular JDK vendors are:
 
+-Amazon Corretto
 
+-Azul Systems
 
-void login(){
-//Authentication and Authorization will be done
-}
+-Eclipse Temurin (Adoptium)
 
-void logout(){
+-IBM Semeru JDK
 
-}
+-Red Hat OpenJDK
 
-void changePassword(){
 
-}
+Example: Amazon Corretto JDK Installation
 
+--If Amazon Corretto JDK is installed, the environment variables are usually set as:
 
+JAVA_HOME = C:\Program Files\Amazon Corretto\jdk21.0.9_10
+Path      = C:\Program Files\Amazon Corretto\jdk21.0.9_10\bin
 
---To develop and run a Java application, we need to install a s/w called JDK(Java Development Kit)
 
---We can get this JDK s/w from the official website of orcale.
+--JAVA_HOME points to the JDK installation directory
 
-but there are many different vendors are available in the market, from them also we can get the JDK s/w. such as Amazon corretto..
+--Path allows us to run Java commands (java, javac) from anywhere in the terminal
 
 
-JAVA_HOME: C:\Program Files\Amazon Corretto\jdk21.0.9_10
+Java Editions (Categories):
 
-Path: C:\Program Files\Amazon Corretto\jdk21.0.9_10\bin
+--Java is divided into three main editions:
 
+1. Java SE (Standard Edition)
 
+--Also called Core Java
 
-Java comes in the form of 3 categories:
+--Provides fundamental APIs such as OOP, collections, multithreading, exception handling, JDBC, etc.
 
+2. Java EE (Enterprise Edition) (now called Jakarta EE)
 
-1. Java SE (Standard Edition) : Core Java
-2. JavaEE (Enterprise Edition): Adv Java
-3. JavaME (Micro Edition): 
+--Also known as Advanced Java
 
+--Used for enterprise and web applications
 
---Java SE is the base edition for the remaining 2 editions
+--Built on top of Java SE
 
---All the above editions comes in the form of a specifiction(a documentation which specifies the rules and guildelines to develop a perticular s/w)
+3. Java ME (Micro Edition)
 
---The implementation of the Java SE specification is the JDK s/w.
+--Used for embedded systems and resource-constrained devices
 
 
-OpenJDK : which is a reference implementation of the Java SE specification.
+Note: Java SE is the base edition for both Java EE and Java ME.
 
 
-CBSE: Java SE
-NCRT: OpenJDK 
-Other verndors relasess the books based on the CBSE pattern: Amazon corretto
+Java as a Specification:
+------------------------
 
+--All Java editions (SE, EE, ME) are specifications, not direct software.
 
+--A specification is a detailed document that defines:
 
+-Rules
 
+-APIs
 
+-Behavior
 
+-Guidelines to develop Java software
 
+--Java SE Specification defines what features a Java SE platform must support.
 
 
+JDK and OpenJDK:
+----------------
 
+--The implementation of the Java SE specification is called the JDK.
 
+--OpenJDK is the reference implementation of the Java SE specification.
 
+--Most vendors (Oracle, Amazon, Azul, etc.) build their JDKs using OpenJDK source code, with some additional optimizations or support.
 
 
 
+Analogy:
+--------
 
+CBSE Syllabus:	Java SE Specification
+NCERT Book:	OpenJDK (Reference Implementation)
+Other Publishers’ Books	Vendor JDKs (Amazon Corretto, Oracle JDK, etc.)
 
 
+Just like:
 
+--NCERT strictly follows the CBSE syllabus
 
+--OpenJDK strictly follows the Java SE specification
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+--Other publishers/vendors release their own versions based on the same standard
 
