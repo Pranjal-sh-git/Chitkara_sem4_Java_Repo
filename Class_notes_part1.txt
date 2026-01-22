@@ -538,13 +538,279 @@ macOS
 
 
 
+************************************************************************
+
+
+IDE installation:
+-----------------
+
+Eclipse
+
+
+
+
+Similarity of Java with Other Programming Languages:
+-----------------------------------------------------
+
+--Most of the common and fundamental programming concepts in Java are very similar to those found in other popular programming languages such as C, C++, and Python.
+
+--These similarities make Java easy to learn, especially for students who already have basic programming knowledge.
+
+--This helps programmers focus on object-oriented concepts rather than struggling with syntax.
+
+--Because of this similarity, transitioning from C/C++ to Java is relatively smooth.
+
+
+
+1. Operators:
+
+Java supports almost the same types of operators as other programming languages:
+
+Arithmetic Operators: +, -, *, /, %
+
+Relational Operators: >, <, >=, <=, ==, !=
+
+Logical Operators: &&, ||, !
+
+Assignment Operators: =, +=, -=, *=, /=
+
+Increment / Decrement Operators: ++, --
+
+--These operators behave almost the same way as in languages like C and C++.
+
+
+2. Conditional Statements (if, if-else, else-if):
+
+Decision-making statements in Java follow a syntax and logic similar to other languages.
+
+Example:
+
+
+int age = 20;
+
+if (age >= 18) {
+    System.out.println("Eligible to vote");
+} else {
+    System.out.println("Not eligible to vote");
+}
+
+
+--The working of if, if-else, and else-if is conceptually identical to C/C++.
+
+
+3. Looping Statements:
+
+--Java provides looping constructs that are almost identical to those in other languages.
+
+for Loop
+--------
+
+for (int i = 1; i <= 5; i++) {
+    System.out.println(i);
+}
+
+
+while Loop:
+----------
+
+int i = 1;
+
+while (i <= 5) {
+    System.out.println(i);
+    i++;
+}
+
+
+
+do-while Loop:
+---------------
+
+int i = 1;
+
+do {
+    System.out.println(i);
+    i++;
+} while (i <= 5);
+
+
+--The logic and flow of loops remain same across most languages.
+
+
+
+4. Identifiers:
+
+--Identifiers are the names given to program elements such as:
+
+Variables
+
+Methods
+
+Classes
+
+Objects
+
+--Rules for identifiers in Java are very similar to other languages:
+
+1. Must start with a letter, _, or $
+
+2. Cannot start with a digit
+
+3. Cannot be a keyword
+
+4. Are case-sensitive
 
 
 
 
 
 
+Note: in java, local variable must be initialized before we use it.
 
+	//local variable 	
+		int z;
+		
+		z=100;
+		
+	System.out.println(z);
+		
+
+Example of conditional statements:
+----------------------------------
+
+Using if-else:
+
+Demo.java:
+----------
+
+
+class Demo{
+
+	public static void main(String[] args){
+
+		
+		int marks = 500;
+
+		 if(marks > 600)
+			 System.out.println("First Div");
+		 else
+			 System.out.println("Second Div");
+
+	}
+
+}
+
+
+Without else part:
+
+
+class Demo{
+
+	public static void main(String[] args){
+
+		
+		int marks = 500;
+		String result = "First Div";
+
+		 if(marks > 600)
+			 result = "Second Div";
+		 
+		System.out.println(result);
+
+	}
+
+}
+
+
+Without if-else:
+----------------
+
+
+class Demo{
+
+	public static void main(String[] args){
+
+		
+		int marks = 500;
+
+
+		String result = (marks > 600) ? "First Div" : "Second Div";
+
+		System.out.println(result);
+			
+	}
+
+}
+
+
+Task:
+
+int x = 15;
+
+if x value is divisible by 5 then print "Hello"  // 10
+if x value is divisible by 3 then print "Welcome" // 9 
+if x value is divisible by 5 and 3 then print "Hello Welcome"  // 15,30
+if x value is not divisible by 5 and 3 then print "invalid number" //2,11
+
+
+
+Solution1: 
+
+
+int x = 15;
+
+if (x % 5 == 0) {
+    System.out.println("Hello");
+}
+else if (x % 3 == 0) {
+    System.out.println("Welcome");
+}
+else if (x % 5 == 0 && x % 3 == 0) {
+    System.out.println("Hello Welcome");
+}
+else {
+    System.out.println("invalid number");
+}
+
+
+Why This Code Is Wrong?
+
+For x = 15
+
+x % 5 == 0 → true
+
+Program prints "Hello"
+
+The condition x % 5 == 0 && x % 3 == 0 is never reached
+
+--More specific condition is placed after less specific condition
+
+--Order of conditions is incorrect
+
+
+Correct code:
+-------------
+
+int x = 15;
+
+if (x % 5 == 0 && x % 3 == 0) {
+    System.out.println("Hello Welcome");
+}
+
+else if (x % 5 == 0) {
+    System.out.println("Hello");
+}
+
+else if (x % 3 == 0) {
+    System.out.println("Welcome");
+}
+
+else {
+    System.out.println("invalid number");
+}
+
+
+
+--In if-else ladder, always write the most specific condition first and the most general condition last.
 
 
 
