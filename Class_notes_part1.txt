@@ -659,7 +659,8 @@ Objects
 
 4. Are case-sensitive
 
-----G7
+
+
 
 
 
@@ -745,12 +746,14 @@ class Demo{
 
 Task:
 
-int x = 11;
+int x = 2;
 
 if x value is divisible by 5 then print "Hello"  // 10
 if x value is divisible by 3 then print "Welcome" // 9 
 if x value is divisible by 5 and 3 then print "Hello Welcome"  // 15,30
 if x value is not divisible by 5 and 3 then print "invalid number" //2,11
+
+
 
 
 
@@ -814,72 +817,136 @@ else {
 --In if-else ladder, always write the most specific condition first and the most general condition last.
 
 
+**************************************************************************************************************************************
 
 
 
+Functions of JVM (Java Virtual Machine):
+-----------------------------------------
 
+--The JVM (Java Virtual Machine) is responsible for executing Java programs.
 
+Main Functions of JVM:
+----------------------
 
+1. Bytecode to Machine Code Conversion:
 
+--JVM converts the required part of the bytecode (.class file) into its equivalent native machine code.
 
+--This conversion is done using:
 
+* Interpreter
 
+* JIT (Just-In-Time) Compiler
 
+2. Loading Code into Memory: 
 
+--JVM loads the required bytecode into RAM using the Class Loader Subsystem.
 
+3. Execution of Code:
 
+--The converted machine code is executed with the help of the underlying Operating System (OS) and hardware.
 
+4. Memory Management:
 
+--JVM automatically manages memory using:
 
+-Heap allocation
 
+-Stack frames
 
+-Garbage Collection (GC)
 
+5. Removal of Unused Objects
 
+--JVM removes unused objects from memory using Garbage Collector, freeing RAM.
 
 
 
+Platform Dependency of JVM:
+---------------------------
 
+--JVM is platform dependent.
 
+Reason:
 
+--A JVM running on Windows generates machine code specific to Windows OS.
 
+--A JVM running on Linux generates machine code specific to Linux OS.
 
+Important Note:
 
+--Java programs are platform independent.
 
+--JVM is platform dependent.
 
 
+Java Packages:
+==============
 
+--A package in Java is a namespace that groups related classes and interfaces in a single unit.
 
+--A package is used to bind the related concept logically.
 
 
+Purposes of Packages: 
 
+1. Logical Grouping
 
+--Groups related classes and interfaces together.
 
+2. Namespace Management
 
+--Prevents naming collisions (same class name in different packages).
 
+Example:
 
+com.chitkara.Demo
+com.masai.Demo
 
+3. Access Control / Security
 
+--To provide some level of security with the help of access modifiers
 
+--Will discuss about this concept in upcoming sessions when we talk about the access modifiers and inheritance concept.
 
 
 
+Commonly Used Java Packages:
+---------------------------
 
 
 
+java.io: Contains classes and interfaces used for Input and Output operations. Example: File, InputStream, OutputStream, BufferedReader
 
+java.util: Containts all the utility related classes like ArrayList, LinkedList, HashMap, Scanner, Date
 
+java.sql: Contains all the classes/interfaces related to perform Database operations.
 
+**java.lang: all the basic/core classes available inside this package.
 
+Example: 
 
+System
+String
+Object
+all the Wrapper classes (Integer, Float, Byte...)
 
 
+--If we try to use a class which belongs to a different package inside our class, then we must import that class from that package.
 
+--java.lang package is a default package, and in order to utilize this package related classes inside our class we need not import this package, this package is by default imported in every Java class.
 
 
 
+Note: In Java the fully quailified name of a class or interface we call it with the help of its package name
 
+java.lang.System
+java.util.ArrayList
 
+com.chitkara.Demo
 
+********************************************************************************************************************************
 
 
 
@@ -894,14 +961,24 @@ else {
 
 
 
-function of jvm:-
-----------------
-1.it converts required part of byte code into its equlivallent executable code
-2.it loads the executable code into the ram.
-3.executes this code through local os.
-4.deletes the code from Ram.
 
-now,if a jvm is in windows environment it converts the .class file into its equlivalent
-executable code that is understand by windows environment only...
-simillarly ...
-thus jvm is platform dependent.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
