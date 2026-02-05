@@ -1562,6 +1562,7 @@ Note: static member are available to the non-static as well as static members, b
 *****************************************************************************
 
 
+
 Demo.java:
 ---------------
 
@@ -1586,7 +1587,11 @@ public class Demo {
 }
 
 
---the above application will throw a runtime exception called StackOverFlowError exception.
+
+
+
+
+--the above application will throw a runtime exception called StackOverFlowError.
 
 Demo.java:
 ------------
@@ -1614,6 +1619,515 @@ public class Demo {
 	}
 
 }
+
+
+
+
+************************************************************************************
+
+
+
+Example2:
+
+
+Demo.java:
+---------------
+
+package com.masai;
+
+public class Demo {
+	
+	int x = 100;
+	static int j =200;
+
+	void fun1(){
+
+		System.out.println("inside fun1 of Demo");
+	}
+
+
+	static void fun2(){
+
+		System.out.println("inside static fun2 of Demo");
+	}
+
+	public static void main(String[] args) {
+		 
+		Demo d1 = new Demo();
+		
+
+		System.out.println(d1.i); 
+		d1.fun1();
+
+
+		d1 = null;
+
+		//d1.fun1(); //NullPointerException
+
+		d1.fun2();// 
+		
+		
+	}
+
+}
+
+
+
+Note: at comiple time the call d1.fun2() will be resolve as Demo.fun2();
+
+
+
+
+
+
+
+
+
+
+
+
+Call by value and Call by refference:
+---------------------------------------
+
+
+--Java passes a copy of the reference, not the object itself.
+
+--Original reference is copied
+
+--Both references point to the same object
+
+--Object changes are visible.
+
+
+
+
+Java behavior:
+
+Primitive: value copy passed
+
+Object: reference value copy passed
+
+
+
+--Java is strictly pass-by-value not passed by reference; even object references are passed by value.
+
+
+
+Example:
+
+
+Demo.java:
+----------
+
+package com.chitkara;
+public class Demo{
+
+
+	static void change(int x)
+
+		x = 50;
+
+	}
+
+
+	public static void main(String[] args){
+
+		int a = 10;
+
+		change(a);
+
+		System.out.println(a);
+
+	}
+
+
+}
+
+
+Here:
+
+--Method receives a copy of a.
+
+--Original value remains unchanged.
+
+
+
+Example2:
+
+
+Student.java:
+-------------
+
+public class Student {
+    int marks = 100;
+    String name = "Raj";
+}
+
+
+
+Demo.java:
+----------
+
+public class Demo {
+
+    static void change(Student s) {
+        s.marks = 50;
+    }
+
+    public static void main(String[] args) {
+        Student st = new Student();
+        change(st);
+        System.out.println(st.marks);
+    }
+}
+
+
+
+Note: Reference itself cannot be changed
+
+
+ static void change(Student s) {
+	s = new Student(); //new object
+        s.marks = 50;
+    }
+
+
+
+
+Activity1: Pridict the output:
+----------
+
+
+class Demo {
+
+    static void change(int x) {
+        x = x + 10;
+    }
+
+    public static void main(String[] args) {
+
+        int a = 5;
+
+        change(a);
+
+        System.out.println(a);
+
+    }
+}
+
+
+
+
+
+Activity2: Pridict the output:
+----------
+
+class Student {
+
+    int marks;
+}
+
+
+class Demo {
+
+    static void addMarks(Student s) {
+
+        s.marks += 10;
+
+    }
+
+    public static void main(String[] args) {
+
+        Student st = new Student();
+        st.marks = 40;
+
+        addMarks(st);
+
+        System.out.println(st.marks);
+    }
+}
+
+
+Activity3: Pridict the output:
+----------
+
+class Box {
+
+    int value = 10;
+}
+
+public class Demo {
+
+    static void modify(Box b) {
+        b.value = 20;
+    }
+
+    static void change(Box b) {
+        b = new Box();
+        b.value = 50;
+    }
+
+    public static void main(String[] args) {
+        Box obj = new Box();
+
+        modify(obj);
+        System.out.println("After modify: " + obj.value); //
+
+        change(obj);
+        System.out.println("After change: " + obj.value);
+    }
+}
+
+
+
+Modify the above code so output becomes:
+
+After change: 50
+
+
+
+Call by Reference in C++:
+========================
+
+
+--In C++, we can pass variables by reference, meaning the method receives the original variable, not a copy.
+
+--So, changes inside the function directly affect the original variable.
+
+
+Example:
+
+#include <iostream>
+using namespace std;
+
+void change(int &x) {   // reference parameter
+    x = 50;
+}
+
+int main() {
+    int a = 10;
+    
+    change(a);
+    
+    cout << a;
+
+    return 0;
+}
+
+
+Output: 50
+
+
+&x means reference to original variable.
+
+No copy is created.
+
+Function works on the original variable(same memory address).
+
+
+
+Swaping 2 Student in C++:
+=========================
+
+#include <iostream>
+using namespace std;
+
+class Student {
+
+public:
+    string name;
+
+};
+
+void swapStudents(Student* &s1, Student* &s2) {
+    Student* temp = s1;
+    s1 = s2;
+    s2 = temp;
+}
+
+int main() {
+
+    Student* st1 = new Student();
+    st1->name = "Rahul";
+
+    Student* st2 = new Student();
+    st2->name = "Amit";
+
+    swapStudents(st1, st2);
+
+    cout <<"st1 name : "  <<st1->name << endl;
+    cout <<"st2 name : " <<st2->name << endl;
+}
+
+
+
+Swaping 2 Student in Java:
+===========================
+
+class Student {
+    String name;
+}
+
+class Test {
+
+    static void swap(Student s1, Student s2) {
+
+        Student temp = s1;
+        s1 = s2;
+        s2 = temp;
+
+    }
+
+    public static void main(String[] args) {
+
+        Student st1 = new Student();
+        st1.name = "Rahul";
+
+        Student st2 = new Student();
+        st2.name = "Amit";
+
+        swap(st1, st2);
+
+        System.out.println(st1.name);//
+        System.out.println(st2.name);
+    }
+}
+
+
+
+Student Task: swap the both student names
+
+
+
+Swap Something in Java? Swap object data instead  of object itself:
+
+Example:
+
+static void swap(Student s1, Student s2) {
+    String temp = s1.name;
+    s1.name = s2.name;
+    s2.name = temp;
+}
+
+
+
+
+Activity4: Pridict the output:
+------------------------------
+
+
+class Student {
+    String name;
+}
+
+class Test {
+
+    static void swap(Student s1, Student s2) {
+        s1.name = "Changed Rahul";
+        s2 = new Student();
+        s2.name = "New Student";
+    }
+
+    public static void main(String[] args) {
+
+        Student st1 = new Student();
+        st1.name = "Rahul";
+
+        Student st2 = new Student();
+        st2.name = "Amit";
+
+        swap(st1, st2);
+
+        System.out.println(st1.name);
+        System.out.println(st2.name);
+    }
+}
+
+
+
+
+Which method will be called:-
+----------------------------
+
+Example1:
+
+class Test {
+
+    void show(String s) {
+        System.out.println("String");
+    }
+
+    void show(Object o) {
+        System.out.println("Object");
+    }
+
+    public static void main(String args[]){
+	Test t = new Test();
+ 	t.show(null);
+    }	
+
+}
+
+
+Note:-In method overloading, the compiler always chooses the MOST SPECIFIC method(Nearest one).
+
+
+Example2:
+
+class Test {
+    void show(String s) {
+        System.out.println("String");
+    }
+
+    void show(Integer i) {
+        System.out.println("Integer");
+    }
+    public static void main(String args[]){
+	Test t = new Test();
+ 	t.show(null);
+    }
+
+}
+
+
+
+Activity5: 
+----------
+
+--Create a class EmployeeSalary with overloaded calculateSalary() methods:
+
+	a. calculateSalary(int basicSalary)
+		* Returns basic salary
+
+	b. calculateSalary(int basicSalary, int bonus)
+		* Returns salary + bonus
+
+	c. calculateSalary(int basicSalary, int bonus, int taxPercentage)
+		* Returns final salary after tax deduction on your basic salary
+			(tax = (basicSalary * taxPercentage) / 100;)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
