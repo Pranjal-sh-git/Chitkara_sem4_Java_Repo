@@ -2165,15 +2165,25 @@ class Demo{
 Constructor in java:
 ====================
 
---it is a kind of non-static method which will be executed automatically at the time of creating an object.
+A constructor in Java is a special non-static method that is executed automatically when an object is created.
 
-ex:
+
+example:
 
 Demo d1= new Demo();
 
 --the meaning of the above statement is "creating a Demo class obj by calling /executing zero argument constructor of Demo class".
 
-Note: when we compile a .java file of a class, Java compiler verifies, is there any constructor in our .java file or not. if we place any constructor manually inside a .java file, Java compiler will place the same constructor inside the .class file , but if we don't place any constructor explicitly inside our .java file then java compiler will place a default constructor inside the .class file.
+
+
+When we compile a .java file:
+------------------------------
+
+--The Java compiler checks whether a constructor is present.
+
+--If a constructor is already written, it is copied to the .class file.
+
+--If no constructor is written, the compiler automatically provides a default constructor.
 
 ex:
 
@@ -2181,56 +2191,73 @@ ex:
 class Demo{
 
 }
+
+
+
                        java compiler
-Demo.java -------------------------> Demo.class
+Demo.java ------------------------------> Demo.class
+
+
+
+
 
 Note: - we can have a .java file for a class without a constructor, but we can't have a .class file for a class without a constructor.
 
---default constrcutor given by the java compiler will always public and zero argument and it is empty body.
+--default constrcutor given by the java compiler will always "public" and "zero argument" and it is empty body.
 
-ex: compiler given default constructor
+example: compiler given default constructor
 
 public Demo(){
 //super();
 }
 
---strikly speaking , it is not a empty body , there is one hidden statement is there 
-inside the default constructor as a first statement.
+--strikly speaking , it is not a empty body , there is one hidden statement("super();") is there inside the default constructor as a first statement.which will call the parent class constructor.
 
 
---until the last statement of the constructor is not executed, object is not 
-created completly. so for an object creatiion, constructor execution is mandatory.
+Important Note:
+---------------
 
+--An object is not completely created until the constructor execution finishes.
 
-Diff bt normal method and constructor:
-===============================
-
-Normal method					Constructor
-
-
-1. method name can be any name.			1.  constructor name must be the class name			
-2. a method must have a return type 		2. constructor does not have return type
-atleast void
-
-3.method can be static 				3. static keyword is not applicable with 											constructor		
-
-4.on a single obj we can call a method multiple	 4. on a single obj a constructor will be called only one time.					
-  
-5.a method can be abstract and can be final also 5. abstract and final keyword is not applicable with constructor.
+--So, constructor execution is mandatory for object creation.
 
 
 
 
-Similarities
-=========
+Difference between a method and a constructor:
+-----------------------------------------------
 
-1. both are the code block, we can write multiple executable statements.
-2.as we can overload a method, we can overload a constructor also. and all the static polymorphism rules are applicable with the constructor overloading.
+
+
+| Normal Method                     | Constructor                     |
+| --------------------------------- | ------------------------------- |
+| Method name can be anything       | Name must be same as class name |
+| Must have return type (even void) | No return type                  |
+| Can be static                     | Cannot be static                |
+| Can be called multiple times      | Called only once per object     |
+| Can be abstract or final          | Cannot be abstract or final     |
+
+
+
+
+Similarities: Method & Constructor
+-----------------------------------
+
+1. Access modifiers(like public, private,..) are application for both.
+ 
+2. Both are the code block, we can write multiple executable statements.
+
+3. As we can overload a method, we can overload a constructor also. and all the static polymorphism rules are applicable with the constructor overloading.
+
+
+
 
 constructor overloading:
 ====================
 
-ex:
+--Multiple constructors with different parameter lists.
+
+example:
 
 Demo.java:-
 ---------------
@@ -2269,19 +2296,23 @@ public class Demo {
 }
 
 
---if we place 4 overloaded constructor inside our class, then we can create object of our class in 4 ways.
+
+
+--If a class has 4 constructors, objects can be created in 4 different ways.
+
+
 
 
 this keyword:
-==========
+=============
 
 --it will represent the current class object.
 
---there are 3 uses of 'this' keyword:
+--there are mainly 3 uses of 'this' keyword:
 
 1. to represent the current class object.
 
-2.to defrentiate the instance variable and the local variable
+2. to differentiates the instance variable and the local variable
 
 3. to call a constructor of a class from the another constructor of the same class.
 
@@ -2296,11 +2327,13 @@ package com.masai;
 
 public class Demo {
 
-	int x = 10;
+	int x = 10; //instance variable
 
 	
 	void fun1() {
-		int x=400;
+
+		int x=400;//local variable
+
 		System.out.println("inside fun1 of Demo");
 		System.out.println(x);//local variable
 		System.out.println(this.x); // instance variable
@@ -2324,6 +2357,10 @@ public class Demo {
 
 ***Note: 'this' keyword we can not use inside static area.
 
+
+Example:
+
+
 Demo.java:-
 --------------
 
@@ -2337,19 +2374,26 @@ public class Demo {
 
 		int x=200;
 		
-		System.out.println(this.x);
+		System.out.println(this.x); //ERROR
 		
 		
 	}
 }
 
 
-Note: constructor will be called automatically whenever we create obj of a cass, but
-we can also call a constructor explicitly.
 
---if we want to call a constructor, then that call must be from the another 
-constructor of the same class (by using 'this' keyword) or from the 
-constructor of child class (by using 'super' keyword)
+
+
+Calling Constructor Explicitly:
+-------------------------------
+
+
+
+Note: constructor will be called automatically whenever we create obj of a cass, but we can also call a constructor explicitly.
+
+--if we want to call a constructor, then that call must be from the another constructor of the same class (by using 'this(); ') or from the constructor of child class (by using 'super();' )
+
+Rule:
 
 --that call of the constructor must be the first statement inside a constructor.
 
@@ -2391,12 +2435,18 @@ public class Demo {
 }
 
 
-Constructor are used for basically for 2 purpose :
+Constructor are used for basically for 2 purpose:
+-------------------------------------------------
 
-1. if we want to execute some statement at the time of our object creation, then
-we can keep those statements inside the constructor.
+1. If we want to execute some statement at the time of our object creation, then we can keep those statements inside the constructor.
 
-2. to initialize the instance variable (initialize an object).
+2. To initialize the instance variable (initialize an object).
+
+
+
+Note: Constructor concept is very much related with the Inheritance concept in Java.
+
+
 
 
 example:
@@ -2465,30 +2515,40 @@ public class Demo {
 }
 
 
-pure encapsulation:
-================
+Pure encapsulation:
+===================
 
---mark our class variable as private and expose them outside the class 
-through the public getters and setters method.
+--For a class in Java we call it as 100% encapsulated class if we: 
 
---don't expose our data directly.
+
+--Make variables private
+
+--Access them using public getters and setters
+
+--Do not expose data directly.
+
+
 
 
 Java Bean class:
-============
---it is a reusable, universal component which should have following properties:
+================
 
-1.this class should be public
 
-2. variables/fields should be private
+--It is a reusable, universal component which should have following properties:
 
-3.for each variable/field there should be corresponding public getter and 
-setter methods.
+1. This class should be "public"
 
-4.this class must have zero argument constructor/default constructor
+2. Variables/fields should be "private"
 
-5.this class may have parameterized constructor. (optional)
+3. For each variable/field there should be corresponding public getter and setter methods.
 
+4. This class must have zero argument constructor/default constructor
+
+5. This class may have parameterized constructor. (optional)
+
+
+
+Example:
 
 
 Student.java:  as a Bean class
@@ -2509,7 +2569,6 @@ public class Student {
 
 
 	public Student(int roll, String name, int marks) {
-		super();
 		this.roll = roll;
 		this.name = name;
 		this.marks = marks;
@@ -2576,13 +2635,37 @@ public class Demo {
 }
 
 
+Student practice questions:
+--------------------------
+
+Activity 1. 
+
+Create a Java Bean class Employee with:
+
+id
+
+name
+
+salary
+
+void displayDetails()
+
+
+--Create 2 objects of the Employee class inside the main method of Demo class
+
+--first object using zero argument constructor and set the properties using setter methods.
+
+--second object using parameterized constructor.
+
+--call the displayDetails() method on both the object to display the details of both employees.
 
 
 
 
 
 
-
+making the constructor as private:
+==================================
 
 
 
