@@ -2668,6 +2668,1020 @@ making the constructor as private:
 ==================================
 
 
+A.java:
+-------
+
+package com.chitkara;
+
+public class A {
+	
+	int i = 10;
+	
+	
+	private A() {
+		System.out.println("A Object is created...");
+	}
+	
+	
+	 void funA() {
+		System.out.println("inside funA of A");
+	}
+	
+	
+	static A getAObject() {
+		 
+//		 A obj = new A();
+//		 return obj;
+		 
+		 return new A();
+		 
+	 }
+
+}
+
+
+
+Demo.java:
+----------
+
+package com.chitkara;
+
+public class Demo {
+	
+	
+	public static void main(String[] args) {
+		
+		A a1=  A.getAObject();
+
+		a1.funA();
+		
+	}
+
+}
+
+
+
+
+
+Example:
+
+
+Vehicle Class with Constructor Chaining:
+
+
+Vehicle.java:
+-------------
+
+
+class Vehicle {
+
+    private String brand;
+    private String model;
+    private int year;
+    private String registrationNumber;
+
+    // Constructor 4: initializes all fields
+    Vehicle(String brand, String model, int year, String registrationNumber) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.registrationNumber = registrationNumber;
+    }
+
+    // Constructor 3: brand + model
+    Vehicle(String brand, String model) {
+        this(brand, model, 2023, "Not-Assigned");
+    }
+
+    // Constructor 2: brand only
+    Vehicle(String brand) {
+        this(brand, "Unknown-model");
+    }
+
+    // Constructor 1: default constructor
+    Vehicle() {
+        this("Unknown-brand");
+    }
+
+    // Method to display vehicle information
+    void displayInfo() {
+        System.out.println("Brand: " + brand);
+        System.out.println("Model: " + model);
+        System.out.println("Year: " + year);
+        System.out.println("Registration: " + registrationNumber);
+        System.out.println("---------------------------");
+    }
+
+    public static void main(String[] args) {
+
+        // Object using default constructor
+        Vehicle v1 = new Vehicle();
+
+        // Object using brand constructor
+        Vehicle v2 = new Vehicle("Toyota");
+
+        // Object using full constructor
+        Vehicle v3 = new Vehicle("Honda", "City", 2022, "PB10AB1234");
+
+        v1.displayInfo();
+        v2.displayInfo();
+        v3.displayInfo();
+    }
+}
+
+
+
+Pridict the Output 1:
+
+
+class Vehicle {
+
+    String brand;
+
+    Vehicle() {
+        this("BMW");
+        System.out.println("Default constructor");
+    }
+
+    Vehicle(String brand) {
+        this.brand = brand;
+        System.out.println("Brand constructor");
+    }
+
+    public static void main(String[] args) {
+        Vehicle v = new Vehicle();
+    }
+}
+
+
+
+
+Pridict the Output 2:
+
+
+class Vehicle {
+
+    Vehicle() {
+        System.out.println("Default");
+        this("Audi");
+    }
+
+    Vehicle(String brand) {
+        System.out.println(brand);
+    }
+}
+
+
+
+Pridict the Output 3:
+
+
+class Vehicle {
+
+    Vehicle() {
+        this("Tesla");
+        System.out.println("A");
+    }
+
+    Vehicle(String brand) {
+        System.out.println("B");
+    }
+
+    public static void main(String[] args) {
+        new Vehicle();
+    }
+}
+
+
+
+Pridict the Output 3:
+
+
+class Vehicle {
+    String brand = "Default";
+
+    Vehicle(String brand) {
+        brand = brand;
+    }
+
+    void show() {
+        System.out.println(brand);
+    }
+
+    public static void main(String[] args) {
+        Vehicle v = new Vehicle("Honda");
+        v.show();
+    }
+}
+
+
+
+
+Taking Input from the User in Java
+==================================
+
+
+In Java desktop applications, user input can be taken in three main ways:
+
+
+1. Command Line Arguments (CLA)
+
+2. BufferedReader class
+
+3. Scanner class (introduced in Java 1.5)
+
+
+Important points:
+------------------
+
+--Using CLA and BufferedReader, input is taken only in String form.
+
+
+
+Example: Using BufferedReader:
+-------------------------------
+
+Demo.java:
+---------
+
+package com.chitkara;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Demo {
+	
+	
+	public static void main(String[] args) throws IOException {
+		
+		
+//		InputStreamReader isr = new InputStreamReader(System.in);
+//		BufferedReader br = new BufferedReader(isr);
+		
+		
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		
+		System.out.println("Enter Number 1: ");
+		String num1= br.readLine();
+		
+		
+		System.out.println("Enter Number 2: ");
+		String num2= br.readLine();
+		
+		
+		int n1= Integer.parseInt(num1);
+		int n2= Integer.parseInt(num2);
+		
+		int result = n1+n2;
+		
+		System.out.println("Result is: "+result);
+				
+	}
+
+}
+
+
+
+--Using Scanner, input can be taken in almost all primitive data types.
+
+--Scanner belongs to the package called "java.util":
+
+So, in order to use this Scanner class we need to this class inside our application
+
+	import java.util.Scanner;
+
+
+Creating Scanner Object:
+-------------------------
+
+
+// Creating a Scanner object by providing an input source to its constructor.
+// The Scanner constructor accepts different input sources such as
+// an InputStream (keyboard input), a File, or other readable sources.
+
+Scanner sc = new Scanner(System.in);  // System.in represents standard input (keyboard).
+
+
+--A Scanner object is created by passing an input source to its constructor.
+
+The input source can be:
+
+--System.in (keyboard input)
+
+--A file object
+
+--Any InputStream object
+
+--A string or readable source
+
+--The "System.in" represents the standard input stream, usually connected to the keyboard.
+
+
+
+
+Scanner provides multiple methods to read different data types.
+
+| Method        | Description                    |
+| ------------- | ------------------------------ |
+| nextInt()     | Reads integer                  |
+| nextFloat()   | Reads float                    |
+| nextLong()    | Reads long                     |
+| nextBoolean() | Reads boolean                  |
+| next()        | Reads next token (single word) |
+| nextLine()    | Reads entire line              |
+
+
+Important Difference:
+
+
+next() reads only one word (token).
+nextLine() reads the entire line, including spaces.
+
+
+
+Example 1: Reading One Number:
+------------------------------
+
+Demo.java:
+----------
+
+import java.util.Scanner;
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter a number:");
+        int num = sc.nextInt();
+
+        System.out.println("Number is: " + num);
+    }
+}
+
+
+
+
+Example 2: Multiple Inputs
+--------------------------
+
+Scanner sc = new Scanner(System.in);
+
+System.out.println("Enter roll:");
+int roll = sc.nextInt();
+
+System.out.println("Enter marks:");
+int marks = sc.nextInt();
+
+System.out.println("Roll: " + roll);
+System.out.println("Marks: " + marks);
+
+
+
+Problem: next() vs nextLine()
+-----------------------------
+
+Scanner sc = new Scanner(System.in);
+
+System.out.println("Enter roll:");
+int roll = sc.nextInt();
+
+System.out.println("Enter name:");
+String name = sc.next();
+
+System.out.println("Enter marks:");
+int marks = sc.nextInt();
+
+
+Input:
+
+10
+Ram Kumar Singh
+20
+
+
+Problem:
+
+--next() reads only Ram.
+
+--Remaining text causes incorrect input behavior.
+
+
+Why It Happens?
+
+--After reading the token (Ram), remaining token will be in buffer.
+
+--and for the marks, (nextInt()) consume the next token (Kumar) and it will cause the InputMismatchException
+
+
+
+explanation: next();
+
+Enter roll 
+10  "/n" 
+Enter name:
+Ram  Kumar singh  "/n"  // here kumar is consumed as next token for the marks value
+Enter Marks
+20  "/n"
+
+
+
+If we use the nextLine() instead if next():
+
+
+then the output will be:
+
+Enter roll:
+10 
+Enter name:
+Enter marks:
+
+
+
+
+
+
+explanation: nextLine();
+
+Enter roll 
+10  "/n" 
+Enter name:   // here sc.nextLine() will consume the above "/n" 
+Enter Marks
+20  "/n"
+
+
+
+Solutions to next() and nextLine() Problem:
+-------------------------------------------
+
+--To solve the above problem we have following solutions:
+
+
+
+1. Never use nextLine()  always read the token by using next(); 
+
+--With this we can not read full name (space sepetated name).
+
+2. always use nextLine(); //even to read the primitives also.
+
+ex:
+		Scanner sc= new Scanner(System.in);
+		
+		System.out.println("Enter a roll :");
+		int roll= Integer.parseInt(sc.nextLine());
+		
+		
+		System.out.println("Enter Name :");
+		String name= sc.nextLine();
+		
+		
+		System.out.println("Enter marks :");
+		int marks= Integer.parseInt(sc.nextLine());
+		
+		
+		System.out.println("The Roll is :"+roll);
+		System.out.println("The Name is :"+name);
+		System.out.println("The Marks is :"+marks);
+
+3. if we need to use nextLine() , then use it at begining.
+ex:
+
+		Scanner sc= new Scanner(System.in);
+		
+		System.out.println("Enter Name :");
+		String name= sc.nextLine();
+		
+		
+		System.out.println("Enter a roll :");
+		int roll= sc.nextInt();
+		
+		
+		System.out.println("Enter marks :");
+		int marks= sc.nextInt();
+		
+		
+		System.out.println("The Roll is :"+roll);
+		System.out.println("The Name is :"+name);
+		System.out.println("The Marks is :"+marks);
+		
+ 		
+
+4. call the blank nextLine() after reading the token to consume the buffered charecter "/n".
+
+		Scanner sc= new Scanner(System.in);
+		
+		
+		System.out.println("Enter a roll :");
+		int roll= sc.nextInt();  
+		
+		sc.nextLine();
+		
+
+		System.out.println("Enter Name :");
+		String name= sc.nextLine();
+		
+		
+		System.out.println("Enter marks :");
+		int marks= sc.nextInt();
+		
+		
+		System.out.println("The Roll is :"+roll);
+		System.out.println("The Name is :"+name);
+		System.out.println("The Marks is :"+marks);
+		
+		
+
+
+
+Student Activity:
+-----------------
+
+Create a Bean class called Product with the following properties:
+
+
+productId
+productName
+price
+quantity
+
+
+--take the input from the user to create and initialize the Product object and print their details till the user opted out.
+
+
+
+
+
+
+
+
+
+Product.java:
+-------------
+
+package com.chitkara;
+
+public class Product {
+
+	private int productId;
+	private String productName;
+	private double price;
+	private int quantity;
+
+	public Product() {
+
+	}
+
+	public Product(int productId, String productName, double price, int quantity) {
+		this.productId = productId;
+		this.productName = productName;
+		this.price = price;
+		this.quantity = quantity;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+}
+
+
+Demo.java:
+----------
+
+package com.chitkara;
+
+import java.util.Scanner;
+
+public class Demo {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		int count = 1;
+
+		while (true) {
+
+			System.out.println("Enter Details of Product " + (count++));
+
+			System.out.println("Enter Product Id");
+			int productId = sc.nextInt();
+
+			System.out.println("Enter Product Name");
+			String productName = sc.next();
+
+			System.out.println("Enter Price");
+			int price = sc.nextInt();
+
+			System.out.println("Enter Quantity");
+			int quantity = sc.nextInt();
+
+			Product product = new Product(productId, productName, price, quantity);
+
+			System.out.println("ProductId :" + product.getProductId());
+			System.out.println("ProductName :" + product.getProductName());
+			System.out.println("Price :" + product.getPrice());
+			System.out.println("Quantity:  :" + product.getQuantity());
+
+			System.out.println("==============================");
+
+			System.out.println("Want More (yes/no) ?");
+			String choice = sc.next();
+
+			if (choice.equals("no"))
+				break;
+
+		}
+
+	}
+}
+
+
+
+Reading the data in the form of matrix:
+--------------------------------------
+
+
+
+		Scanner sc= new Scanner(System.in);
+		
+		System.out.println("Enter numbers in 3*3 matrix");
+		
+		 int n1= sc.nextInt();
+		 int n2= sc.nextInt();
+		 int n3= sc.nextInt();
+		
+		 sc.nextLine();
+		 
+		 int n4= sc.nextInt();
+		 int n5= sc.nextInt();
+		 int n6= sc.nextInt();
+		 
+		 
+		 System.out.println(n1+" "+n2+" "+n3);
+		 System.out.println(n4+" "+n5+" "+n6);
+		 
+
+
+
+Closing the Scanner:
+-------------------
+
+sc.close();
+
+
+--It is not strictly mandatory, but it is recommended to close a Scanner object when you are done using it.
+
+
+Scanner uses system resources like:
+
+--Input streams
+
+--Files
+
+--Memory buffers
+
+Closing Scanner will:
+
+--Frees resources
+
+--Prevents memory/resource leaks
+
+--Is good programming practice
+
+
+
+Scanner sc = new Scanner(System.in);
+
+sc.close();
+
+
+--Closing Scanner connected to System.in also closes System.in, preventing further keyboard input in the program.
+
+sc.close()  =>  System.in.close()
+
+
+Example:
+
+
+import java.util.Scanner;
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        Scanner sc1 = new Scanner(System.in);
+        System.out.println("Enter number:");
+        int x = sc1.nextInt();
+
+        sc1.close();  // closes System.in
+
+        Scanner sc2 = new Scanner(System.in);
+        System.out.println("Enter another number:");
+        int y = sc2.nextInt();  // ERROR or no input
+
+        System.out.println(x + y);
+    }
+}
+
+
+--Second input fails because System.in is already closed.
+
+Note: System.in is a global system resource, not easily reopened by Java once closed.
+
+
+Best Practice:
+
+For keyboard input: 
+
+--Do not close early.
+
+--Let program end naturally.
+
+--Often avoided in small programs:
+
+
+For file input: 
+
+--Always close.
+
+
+
+
+
+Scanner Class – hasNext() Methods:
+----------------------------------
+
+--When using the Scanner class, programs may crash if input is not available or is in the wrong format.
+
+--To avoid this, Scanner provides hasNextXXX() methods.
+
+
+boolean hasNextXXX();
+
+--hasNextXXX() methods check whether input of a specific type is available before reading it.
+
+--Returns true if there is more input; otherwise, false. 
+
+--It is used to avoid runtime errors when input is missing or unexpected. 
+
+--Commonly used in loops when reading multiple inputs from a user or a file. 
+
+
+Types of hasNext() Methods:
+--------------------------
+
+
+hasNext(): Checks if any token is available. 
+
+hasNextInt(): Checks if the next token can be parsed as an int. 
+
+hasNextDouble(): Checks if the next token can be parsed as a double. 
+ 
+hasNextBoolean(): Checks if the next token can be parsed as a boolean. 
+ 
+hasNextLine(): Checks if another line of input is available.
+ 
+
+
+
+Example:
+
+Without checking:
+
+int num = sc.nextInt();  // may crash if input is not integer
+
+
+Safer way:
+
+if (sc.hasNextInt()) {
+    int num = sc.nextInt();
+}
+
+
+
+Example1: Checking Integer Input
+
+
+import java.util.Scanner;
+
+class Demo {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter a number:");
+
+        if (sc.hasNextInt()) {
+            int num = sc.nextInt();
+            System.out.println("Number: " + num);
+        } else {
+            System.out.println("Invalid input!");
+        }
+    }
+}
+
+
+
+Input: 10 => Valid
+Input: abc => Invalid
+
+
+
+
+
+Example2: Using hasNext() to read words until input ends 
+--------
+
+import java.util.Scanner; 
+ 
+public class Demo {
+ 
+    public static void main(String[] args) { 
+
+        Scanner sc = new Scanner(System.in); 
+        System.out.println("Enter words (type 'exit' to stop):"); 
+ 
+        while (sc.hasNext()) { // Check if there is another token 
+
+            String word = sc.next(); 
+
+            if (word.equals("exit")) { 
+                break; 
+            } 
+
+            System.out.println("You typed: " + word); 
+        } 
+ 	
+	System.out.println("Bye"); 
+ 
+        sc.close(); 
+    } 
+} 
+
+
+
+Example3: Using hasNextInt() to safely read integers
+
+
+Scanner sc = new Scanner(System.in); 
+System.out.println("Enter numbers (type a non-number to stop):"); 
+ 
+while (sc.hasNextInt()) { // Only true if next input is an integer 
+    int num = sc.nextInt(); 
+    System.out.println("You entered: " + num); 
+} 
+ 
+System.out.println("Non-integer input detected, stopping."); 
+
+
+
+Example4: Using hasNextLine() to read lines safely 
+
+
+Scanner sc = new Scanner(System.in); 
+
+System.out.println("Enter multiple lines (type 'quit' to stop):"); 
+ 
+while (sc.hasNextLine()) {
+ 
+    String line = sc.nextLine(); 
+    if (line.equals("quit"))  
+	break; 
+ 
+    System.out.println("Line: " + line); 
+} 
+
+
+
+
+Example5: Reading a text file using Scanner class:
+
+
+Demo.java:
+----------
+
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Demo {
+
+	public static void main(String[] args) throws FileNotFoundException {
+        
+		Scanner sc= new Scanner(new File("E:\\Chitkara_sem4_Java_Repo\\Class_notes_part1.txt"));
+		
+		
+		while(sc.hasNextLine()) {
+			
+			String line = sc.nextLine();
+			
+			System.out.println(line);
+		}
+		
+		System.out.println("Done....");
+		
+		sc.close();
+	
+		
+	}
+}
+
+
+
+Example6: Reading from the String
+
+
+String input = "101 Ram 85";
+
+Scanner sc = new Scanner(input);
+
+int roll = sc.nextInt();
+String name = sc.next();
+int marks = sc.nextInt();
+
+System.out.println(roll);
+System.out.println(name);
+System.out.println(marks);
+
+
+
+
+Changing Token Delimiter:
+-------------------------
+
+
+--Scanner allows custom delimiter.
+
+
+Example:
+
+String data = "10,20,30";
+
+Scanner sc = new Scanner(data);
+sc.useDelimiter(",");
+
+while (sc.hasNextInt()) {
+    System.out.println(sc.nextInt());
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
