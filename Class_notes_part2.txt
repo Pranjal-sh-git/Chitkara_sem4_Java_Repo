@@ -1,0 +1,1041 @@
+Array in Java:
+==============
+
+--An array is used to store multiple values of the same data type in a single variable.
+
+Example:
+
+
+int[] arr = new int[5]; //5 int variable is created with thier default value as an array obj.
+
+
+
+--The above created array is capable of storing 5 integers.
+
+
+--In Java, arrays are treated as objects.
+
+--Array object is created in heap memory
+
+--Array variable is a reference variable
+
+--Array class is automatically created by JVM (It is a special type of class)
+
+--Inside an object there is a non-static variable is availabe called "length" which represents the size of that array.
+
+	public final int length
+
+
+Example:
+
+
+int[] arr = new int[5];
+
+System.out.println(arr); // [I@...
+
+System.out.println(arr[0]); // 0
+System.out.println(arr[3]); // 0
+System.out.println(arr.length); // 5
+System.out.println(arr[6]); // ArrayIndexOutOfBoundsException
+
+
+
+
+
+Assigning Values to Array:
+-------------------------
+
+int[] arr = new int[5];
+
+arr[0] = 10;
+arr[1] = 20;
+arr[4] = 40;
+
+
+Looping Through Array:
+----------------------
+
+--Using normal for loop
+
+for(int i = 0; i < arr.length; i++) {
+    System.out.println(arr[i]);
+}
+
+
+--Using enhanced for loop:
+
+for(int value : arr) {
+    System.out.println(value);
+}
+
+
+
+
+
+another syntax of an array:
+===========================
+
+--Array Initialization Shortcut
+
+int[] arr = {10,20,30,40,50};
+
+
+Important Difference:
+--------------------
+
+int[] arr1;
+arr1 = new int[5];    // valid
+
+int[] arr2;
+arr2 = {10,20,30};    // invalid
+
+
+
+Correct Way:
+
+arr2 = new int[]{10,20,30};
+
+
+
+
+Variables Created in Array:
+----------------------------
+
+
+int[] arr = new int[3];
+
+
+Creates:
+
+1. arr (reference variable)
+
+2. arr[0] (int variable)
+
+3. arr[1] (int variable)
+
+4. arr[2] (int variable)
+
+Total = 4 variables
+
+
+
+
+Array of Objects:
+=================
+
+--Array can store objects also.
+
+
+Example:
+
+
+A.java:
+-------
+
+public class A{
+
+
+	int i =10;
+
+	void funA(){
+
+		System.out.println("inside funA of A class");
+	}
+
+
+}
+
+
+
+Demo.java:
+---------
+
+
+	A[] arr = new A[3];
+
+
+--Here we have not created any object of A class, instead we have created the array object of A type.
+
+--basically we have created the 3 variables of A class 
+		
+//A a1, a2, a3;
+		
+1.arr --ref variable of array type object
+2.arr[0] -- ref variable A type with default value = null
+3.arr[1] -- ref variable A type with default value = null
+4.arr[2] -- ref variable A type with default value = null
+
+
+
+
+
+Example: Assigning the above array elements 
+
+
+	
+		A[] arr = new A[3];
+		
+		arr[0] = new A();
+		arr[1] = new A();
+		arr[2] = new A();
+		
+		for(A a1:arr) {
+			a1.funA();
+		}
+		
+		//shortcut approach		
+		A[] arr = {new A(),new A(), new A(),new A()};
+		
+		for(A a1:arr) {
+			
+			a1.funA();
+		}
+		
+
+
+
+
+String Array Example:
+---------------------
+
+	String[] cities = {"Delhi","Pune","Mumbai"};
+
+	for(String city : cities){
+    	
+		System.out.println(city.toUpperCase());
+	}
+
+
+
+
+Array as Method Parameter:
+--------------------------
+
+
+Demo.java:
+----------
+
+
+package com.masai;
+
+public class Demo {
+	
+	
+	void fun1(int[] arr) {
+		
+		System.out.println("inside fun1 of Demo");
+
+		if(arr != null){
+
+        		for(int i : arr){
+            			System.out.println(i);
+			}
+    		}else{
+
+			System.out.println("Supplied Array is null");
+		}
+	}
+	
+
+	public static void main(String[] args) {
+	
+		Demo d1= new Demo();
+		
+		//here we can pass 2 possible value
+		//1. null default value for any ref variable
+		//2. int array object, (loaded or without loaded)
+		
+		//d1.fun1(null);
+		
+		// int arr[] = new int[3];
+		//d1.fun1(arr);
+
+		int arr[] = {10,20,30};
+
+		d1.fun1(arr);
+		
+		
+	}
+
+}
+
+
+
+
+Activity1: implement the following method
+
+
+
+int getTotalMarks(int[] marks)
+
+
+
+Solution:
+
+
+Demo.java:
+----------
+
+package com.chitkara;
+
+public class Demo {
+	
+	
+	int getTotalMarks(int[] marks) {
+	
+		int total =0;
+	
+		if(marks != null) {
+		
+			System.out.println("inside getTotalMarks() of Demo");
+		
+		
+			for(int m:marks) {
+				total += m;
+			}
+		
+		}
+		else{
+			System.out.println("null is not allowed");
+		}
+
+		return total;
+		
+	}
+	
+
+	public static void main(String[] args) {
+	
+		Demo d1= new Demo();
+		
+		int[] studentMarks= {100,120,150,180,200};
+		
+		d1.getTotalMarks(studentMarks);
+				
+	}
+
+}
+
+
+
+Activity2: Create a program to store and display details of multiple students using array of objects.
+
+Requirements:
+
+Step 1: Create a Student Bean Class with the following properties
+
+roll (int)
+
+name (String)
+
+marks (double)
+
+
+
+Step 2: Implement the following method inside the Demo class:
+
+	void getStudentsDetails(Student[] students)
+
+
+This method should:
+
+--Accept an array of Student objects
+
+--Display details of each student
+
+
+Step 3: Inside main() method of the Demo class
+
+--Ask user for number of students.
+
+--Create Student array of that size.
+
+--Take input from user to initialize each student.
+
+--Call getStudentsDetails() method to display data.
+
+
+
+
+Solution:
+
+
+Student.java: Student Bean class
+-------------
+
+package com.chitkara;
+
+public class Student {
+
+	private int roll;
+	private String name;
+	private double marks;
+
+	// zero arg constructor
+	public Student() {
+
+	}
+
+	 // Parameterized constructor
+	public Student(int roll, String name, double marks) {
+		this.roll = roll;
+		this.name = name;
+		this.marks = marks;
+	}
+
+	public int getRoll() {
+		return roll;
+	}
+
+	public void setRoll(int roll) {
+		this.roll = roll;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getMarks() {
+		return marks;
+	}
+
+	public void setMarks(double marks) {
+		this.marks = marks;
+	}
+
+}
+
+
+
+
+
+
+Demo.java:
+----------
+
+
+package com.chitkara;
+
+import java.util.Scanner;
+
+public class Demo {
+	
+	
+	void getStudentsDetails(Student[] students) {
+	
+		if(students != null) {
+		
+		System.out.println("Student Details");
+		System.out.println("===============");
+		
+			for(Student student:students) {
+				
+				System.out.println("Roll is :"+student.getRoll());
+				System.out.println("Name is :"+student.getName());
+				System.out.println("Marks is :"+student.getMarks());
+				
+				System.out.println("------------------------------");
+			}
+			
+			
+		}else{
+			System.out.println("Student array is null!");
+		}		
+	}
+	
+
+	public static void main(String[] args) {
+	
+		Demo d1= new Demo();
+		
+		Scanner sc= new Scanner(System.in);
+		
+		System.out.println("How many Student ?");
+		int num= sc.nextInt();
+		
+		Student[] students = new Student[num];//3
+		
+		
+		for(int i=0;i<students.length;i++) {
+			
+			System.out.println("Enter Details of Student "+(i+1));
+			
+			System.out.println("Enter roll:");
+			int roll= sc.nextInt();
+			
+			System.out.println("Enter Name");
+			String name= sc.next();
+			
+			System.out.println("Enter Marks");
+			double marks= sc.nextDouble();
+			
+			//students[i]= new Student(roll, name, marks);
+			students[i] = new Student();
+			students[i].setRoll(roll);
+			students[i].setName(name);
+			students[i].setMarks(marks);
+			
+		}
+		
+		
+		
+		d1.getStudentsDetails(students);
+		
+		
+	}
+
+}
+
+
+
+
+
+Activity 3: 
+
+
+From the above student array:
+
+1. Print highest marks student
+
+2. Print average marks
+
+inside the following method of the Demo class:
+
+
+void calculateStatistics(Student[] students)
+
+
+
+
+
+
+
+
+
+
+
+Solution:
+
+
+void calculateStatistics(Student[] students) {
+
+    if (students == null || students.length == 0) {
+        System.out.println("No student data available.");
+        return;
+    }
+
+    double total = 0;
+    Student topper = students[0];
+
+    for (Student s : students) {
+        total += s.getMarks();
+
+        if (s.getMarks() > topper.getMarks()) {
+            topper = s;
+        }
+    }
+
+    double average = total / students.length;
+
+    System.out.println("Average Marks: " + average);
+
+    System.out.println("Highest Marks Student:");
+    System.out.println("Roll: " + topper.getRoll());
+    System.out.println("Name: " + topper.getName());
+    System.out.println("Marks: " + topper.getMarks());
+}
+
+
+
+
+
+Activity 4: Search a student using roll number.
+
+--Implement the following method inside the Demo class:
+
+
+void searchStudent(Student[] students, int roll)
+
+
+
+
+
+Solution:
+
+
+void searchStudent(Student[] students, int roll) {
+
+    boolean found = false;
+
+    for (Student s : students) {
+        if (s.getRoll() == roll) {
+            System.out.println("Student Found:");
+            System.out.println("Name: " + s.getName());
+            System.out.println("Marks: " + s.getMarks());
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        System.out.println("Student not found.");
+    }
+}
+
+
+
+Call from main of Demo class:
+------------------------------
+
+
+System.out.print("Enter roll number to search: ");
+int r = sc.nextInt();
+d1.searchStudent(students, r);
+
+
+
+
+Array as return type:
+=======================
+
+
+--In Java, a method can return an array just like it returns any other object.
+
+Since arrays are objects in Java, a method can return:
+
+--an array of primitive types
+
+--an array of objects
+
+
+This is useful when:
+
+--Multiple values must be returned
+
+--Data is fetched from database or file
+
+--A list of objects needs to be sent back to caller
+
+Example:
+
+--A method returns multiple Student objects after login validation.
+
+
+
+Activity 5:
+
+
+--Implement the following method inside the Demo class that returns an array of Student objects after validating login credentials.
+
+
+Student[] getStudents(String username, String password)
+
+
+If credentials are valid: (username= "admin" and password = "12345")
+
+--Create and return Student array with size 3 (with initialized student object with dummy value).
+
+--Otherwise return null.
+
+In main method:
+
+--Take the username and password from the user
+
+--Call method
+
+--Display student details if data returned.
+
+
+
+Solution:
+
+
+Demo.java
+---------
+
+
+package com.chitkara;
+
+import java.util.Scanner;
+
+public class Demo {
+
+    Student[] getStudents(String username, String password) {
+
+        if (username.equals("admin") && password.equals("123")) {
+
+	//we can connect with DB and get multiple Student object from the DB and return them in the form an array.
+
+            Student[] students = new Student[3];
+
+            students[0] = new Student(10, "N1", 780);
+            students[1] = new Student(12, "N2", 680);
+            students[2] = new Student(14, "N3", 880);
+
+            return students;
+        }
+
+        return null;
+    }
+
+    public static void main(String[] args) {
+
+        Demo d1 = new Demo();
+
+        Scanner sc = new Scanner(System.in);
+        
+        
+        System.out.println("Enter username: ");
+        String username= sc.next();
+        
+        System.out.println("Enter password: ");
+        String password= sc.next();
+        
+        
+        
+        Student[] students = d1.getStudents(username, password);
+
+        if (students != null) {
+
+            for (Student student : students) {
+                System.out.println("Roll : " + student.getRoll());
+                System.out.println("Name : " + student.getName());
+                System.out.println("Marks: " + student.getMarks());
+                System.out.println("----------------------");
+            }
+
+        } else {
+            System.out.println("Invalid username or password.");
+        }
+    }
+}
+
+
+
+
+
+2d Array:
+========
+
+--In Java multi-dimentional array is treated as array of array.
+
+
+
+Example:
+
+int[][] arr = new int[3][2];
+
+
+Meaning:
+
+3 rows
+
+2 columns
+
+
+
+		System.out.println(arr);//[[I@
+		
+		System.out.println(arr.length);//3
+
+		System.out.println(arr[0]);//[I@3432432
+		
+		System.out.println(arr[0].length); 
+
+		System.out.println(arr[0][1]);//0
+
+
+
+
+Filling and printing 2D array:
+------------------------------
+
+Example:
+
+
+Demo.java
+---------
+
+
+
+package com.chitkara;
+
+public class Demo {
+		
+	public static void main(String[] args) {
+	
+		
+		int[][] arr= new int[4][4];
+		
+		for(int i=0;i<arr.length;i++) {
+			
+			for(int j=0;j<arr[i].length;j++) {
+				
+				arr[i][j]=j;
+				
+			}	
+		}
+		
+		
+		for(int[] ar:arr) {
+			
+			for(int i:ar) {
+				System.out.print(i+" ");
+			}
+			System.out.println();
+		}
+		
+		
+		
+		
+	}
+
+}
+
+
+
+Row-wise Sum:
+-------------
+
+
+for(int i=0;i<arr.length;i++){
+
+    int sum = 0;
+
+    for(int j=0;j<arr[i].length;j++){
+        sum += arr[i][j];
+    }
+
+    System.out.println("Row Sum = "+sum);
+}
+
+
+
+Column-wise Sum:
+----------------
+
+for(int j=0;j<arr[0].length;j++){
+
+    int sum = 0;
+
+    for(int i=0;i<arr.length;i++){
+        sum += arr[i][j];
+    }
+
+    System.out.println("Column Sum = "+sum);
+}
+
+
+
+
+
+
+Printing Diagonal Elements:
+----------------------------
+
+
+for(int i=0;i<arr.length;i++){
+    System.out.println(arr[i][i]);
+}
+
+
+
+
+Jagged Array:
+============
+
+
+A Jagged Array is a multi-dimensional array where each row can have different number of columns.
+
+In simple terms:
+Each row can store a different number of elements.
+
+
+Example:
+
+Classroom Seating arrangement:
+
+Row1: 3 students
+Row2: 5 students
+Row3: 2 students
+
+
+
+
+
+
+Why Jagged Array?
+-----------------
+
+
+Used when data size is not uniform, for example:
+
+--Students having different numbers of subjects
+
+--Employees having different projects
+
+--Monthly sales with varying days
+
+--Different course modules
+
+
+Using a normal 2D array wastes space whereas Jagged arrays fit perfectly.
+
+
+Important Concept
+------------------
+
+
+--In Java, a 2D array is actually an array of arrays.
+
+--So each row can be created with different sizes.
+
+Syntax:
+
+int[][] arr = new int[3][];
+
+Here:
+
+Total rows = 3
+
+Column sizes not defined yet
+
+
+Assign Different Column Sizes
+
+
+int[][] arr = new int[3][];
+
+arr[0] = new int[2];
+arr[1] = new int[4];
+arr[2] = new int[3];
+
+
+
+Example Program
+----------------
+
+public class Demo {
+    public static void main(String[] args) {
+
+        int[][] arr = new int[3][];
+		
+		
+		arr[0] = new int[] {10,20};
+		arr[1] = new int[] {50,60,70,80};
+		
+		arr[2] = new int[3];
+		arr[2][0] = 30;
+		arr[2][1] = 90;
+		arr[2][2] = 100;
+		
+		for(int i=0;i<arr.length;i++) {
+			
+			for(int j=0;j<arr[i].length;j++) {
+				
+				System.out.print(arr[i][j]+" ");
+			}
+			
+			System.out.println();
+			
+		}
+	}
+}
+
+
+
+
+
+
+
+Activity 6 — Jagged Array
+=============================
+
+Problem Statement
+
+--Create a program using a jagged array to store marks of students where each student has different number of subjects.
+
+Requirements
+
+--Ask user for number of students.
+
+--Ask subject count for each student.
+
+--Store marks accordingly.
+
+--Display marks of each student.
+
+
+Solution:
+
+
+Demo.java
+----------
+
+
+package com.chitkara;
+
+import java.util.Scanner;
+
+public class Demo {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		
+		
+		System.out.println("Enter number of students");
+		int studentCount= sc.nextInt();
+		
+		
+		int[][] marks = new int[studentCount][];
+		
+		
+		//for each student
+		
+		for(int i=0;i<studentCount;i++) {
+			
+			System.out.println("Enter number of subject for the student "+(i+1)+" :");
+			
+			int subjectCount= sc.nextInt();
+			
+			marks[i] = new int[subjectCount];
+			
+			System.out.println("Enter marks of student "+(i+1));
+			
+			for(int j=0;j<subjectCount;j++) {
+				
+				System.out.println("Enter marks for the subject: "+(j+1));
+				marks[i][j]= sc.nextInt();
+				
+			}	
+		}
+		
+		
+		System.out.println("Student Marks");
+		
+		
+		for(int i=0;i<marks.length;i++) {
+			
+			System.out.println("Student "+(i+1));
+			
+			for(int j=0;j<marks[i].length;j++) {
+				
+				
+				System.out.println(marks[i][j]+" ");
+			}
+			
+			System.out.println();
+			
+			
+		}
+		
+		sc.close();
+		
+	}
+
+}

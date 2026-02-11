@@ -3045,6 +3045,15 @@ System.out.println("Marks: " + marks);
 Problem: next() vs nextLine()
 -----------------------------
 
+--> next(), nextInt(), nextFloat(), .. reads the token
+
+--> nextLine() reads the entire line...
+
+
+
+
+
+
 Scanner sc = new Scanner(System.in);
 
 System.out.println("Enter roll:");
@@ -3601,7 +3610,7 @@ import java.util.Scanner;
 
 public class Demo {
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws Exception {
         
 		Scanner sc= new Scanner(new File("E:\\Chitkara_sem4_Java_Repo\\Class_notes_part1.txt"));
 		
