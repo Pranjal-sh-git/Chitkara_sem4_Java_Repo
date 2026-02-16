@@ -1414,6 +1414,243 @@ System.out.println(Math.PI); //3.141592653589793
 
 
 
+Inheritance in Java:
+=====================
+
+
+--Inheritance is a mechanism in Java where one class acquires the properties and behaviors of another class.
+
+In simple words:
+
+--Getting properties and methods of one class into another class.
+
+Example
+
+--If Dog is an Animal, then Dog inherits properties of Animal.--with the help of inheritance we achieve IS-A realtionship
+
+
+
+Advantages of Inheritance:
+--------------------------
+
+1. Code reusability
+
+2. Runtime polymorphism
+
+3. Better code organization
+
+4. Easier maintenance
+
+
+
+Relationships in Java:
+----------------------
+
+--In Java, there are 2 types of relationships exists:
+
+1. Has-A (Assosication)
+	--Composistion (Strong Has-A)
+	--Aggregation (Weak Has-A)
+
+
+
+
+Has-A relationship  example:
+
+class A {
+
+B b1 = new B();
+
+}
+
+
+Here A class contains the object of another class B
+
+
+2. Is-A relationship: (Inheritance)
+
+
+--lets assume we need to develop a forest project, in which we need to create some class like:
+
+Dog	Cat 	Tiger	Lion ,20 
+
+
+and all classes should have following methods:
+
+
+sleep() //1000
+walk() //5000
+eat() //6000
+makeNoise()
+
+
+
+--In this situation, we need to repeat the above methods inside the multiple classes, to avoid this situations we can make use of Inheritance concept in Java.
+
+--in which we can create a Parent class called Animal and keep all the common functionalities inside this class:
+
+--And then all the above classes can extends the Animal class, and become the child class of this Animal class, later on any of the above classes can override the makeNoise method, and define its own functionlities also.
+
+
+--we can put one more category inside this Inherince hirarchey, like one as WildAnimal and another as DomesticAnimal also.
+
+
+
+Type of inheritance:
+=================
+
+Note: At class level java supports only multilevel inheritance(single, hirarical).where as with the help of interface we can achieve multiple inheritance.
+
+
+Basic Inheritance Example
+-----------------------
+
+//Parent Class
+
+A.java:
+-------
+
+package com.chitkara
+public class A {
+
+    int i = 10;
+
+    void funA() {
+        System.out.println("inside funA of A");
+
+    }
+}
+
+
+//Child Class
+
+Demo.java:
+---------
+
+public class Demo extends A {
+
+    int x = 100;
+
+    void funX() {
+        System.out.println("inside funX of Demo");
+    }
+
+    public static void main(String[] args) {
+
+        Demo d1 = new Demo();
+
+        System.out.println(d1.x);
+        d1.funX();
+
+        System.out.println(d1.i);
+        d1.funA();
+
+    }
+}
+
+
+
+Child class object can access:
+
+--its own properties
+
+--parent class properties.
+
+
+
+
+Concept:
+--------
+
+
+--Here A class will become parent/super/base class and the Demo class will become child class/ subclass/derived class.
+
+--From the object of child class we can refer to the properties of the parent class also.
+
+
+With respect to the diagram:
+
+
+1. Object of the super class is created first completly before object of the child class created completly.
+
+2.super class obj will be created from the constructor of the subclass.(by using  super(); )
+
+Demo(){
+super(); // create the parent class object by executing parent class constructor.
+
+}
+
+
+3. super class object will be created in association with the subclass object.
+
+4. Object class is the super most class of any java class.
+
+
+Note: meaning of  super() is to  create the parent class object by executing parent class zero arguement constructor.
+
+Note: if inside the parent class we have only parameterized constructor then inside the child class we need to call that parent class constructor explicitly by supplying appropriate argument ex: super(10);
+otherwise our inheritance will fail.. here we can not depend upon  default constructor of the child class, we need to keep constructor inside the child class explicitly and from there need to call parent class constrcutor,
+
+
+
+
+example:
+
+A.java:
+---------
+
+package com.chitkara;
+
+public class A {
+	
+	int i=10;
+	
+	A(int i){
+		System.out.println("inside A constructor");	
+		
+	}
+	
+	void funA() {
+		
+		System.out.println("inside funA of A");
+	}
+
+}
+
+Demo.java:
+---------------
+
+package com.masai;
+
+public class Demo extends A{
+		
+	int x=100;
+	
+	
+	Demo(){
+		super(10);
+		System.out.println("inside Demo constructor");
+	}
+	
+	void funX() {
+		
+		System.out.println("inside funX of Demo");
+	}
+
+	
+	public static void main(String[] args) {
+			
+		Demo d1 = new Demo();
+		
+		System.out.println(d1.x);
+		d1.funX();
+		
+		System.out.println(d1.i);
+		d1.funA();
+		
+	}
+
+}
 
 
 
@@ -1424,9 +1661,522 @@ System.out.println(Math.PI); //3.141592653589793
 
 
 
+Super class reference and child class object:
+===================================
+
+--according to this rule, we can assign any child class object to its parent class reference variable.
+
+A a1 = new A();
+A a1 = null;
+A a1 = new Demo(); // this is possible only if Demo class is the child class of A
 
 
 
+A.java:
+
+funA()
+funB()
+
+
+Demo.java extends A
+
+funA(); //overriden
+funX(); // child specific method
+
+
+
+Note: if a super class ref pointing to the child class object, then with that obj we can refer only members of the parent class and, if that method is overriden inside the child class then child class method will gets the priority. but with the super class reference we can not call the child class specific functionality. will get a CE.
+
+
+example:
+
+A.java:
+-----------
+
+package com.masai;
+
+public class A {
+	
+	int i=10;
+	
+	void funA() {
+		
+		System.out.println("inside funA of A");
+	}
+	
+	void funB() {
+		System.out.println("inside funB of A");
+	}
+	
+
+}
+
+
+
+Demo.java:
+--------------
+
+package com.masai;
+
+public class Demo extends A{
+		
+	int x=100;
+	
+
+	@Override
+	void funA() {
+		
+		System.out.println("inside funA of Demo");
+	}
+	
+
+	void funX() {
+		
+		System.out.println("inside funX of Demo");
+	}
+	
+	
+	public static void main(String[] args) {
+			
+//		Demo d1 = new Demo();
+//
+//		d1.funB();
+//		d1.funA();//Demo
+//		d1.funX();
+
+		
+		//A a1 = new A();
+		
+		//a1.funA(); // A 
+		//a1.funX(); //CE
+		
+		
+		A a1 = new Demo();
+		
+		a1.funA();  
+		a1.funB();
+		
+		//a1.funX(); //CE 
+		
+
+
+
+	}
+
+}
+
+
+Note: in order to call the child class specific functionality from the parent class object, we need to downcast the super class ref to the appropriate child class object.
+
+
+ex:
+	//upcasting
+	A a1= new Demo();
+
+	//downcasting
+	Demo d1= (Demo)a1;
+
+	d1.funX();
+	
+ //object downcasting this is possible only when super class ref points to the child class object
+//if A a1 = new A() and then we try to downcast then we will get a runtime exception called ClassCastException
+
+
+
+
+
+
+
+LgOldTv.java:
+----------------
+
+package com.masai;
+
+public class LgOldTv {
+	
+	
+	public void start() {
+		System.out.println("Tv Starting");
+	}
+	
+	public void increaseVolume() {
+		System.out.println("volume increased..");
+	}
+	
+	public void changeChannel() {
+		
+		System.out.println("Channel changed in Old Way...");
+	}
+}
+
+
+LgSmartTv.java:
+----------------------
+
+package com.masai;
+
+public class LgSmartTv extends LgOldTv {
+	
+	@Override
+	public void changeChannel() {
+		
+		System.out.println("Channel Changed in smart way..");
+	}
+	
+	
+	public void playGame() {
+		
+		System.out.println("Game Starts...");
+	}
+
+}
+
+Demo.java:
+--------------
+
+package com.masai;
+
+public class Demo {
+			
+	
+	public static void main(String[] args) {
+			
+//		LgOldTv remote = new LgOldTv();
+//		
+//		remote.start();
+//		remote.increaseVolume();
+//		remote.changeChannel(); // old way
+//		
+	
+//		LgSmartTv remote=new LgSmartTv();
+//	
+//		remote.start();
+//		remote.increaseVolume();
+//		remote.changeChannel();//smart way
+//		remote.playGame();
+
+		//upcasting
+		LgOldTv remote = new LgSmartTv();
+		
+		remote.start();
+		remote.increaseVolume();
+		remote.changeChannel();// smart way
+		
+		//LgSmartTv nRemote=new LgSmartTv();
+		
+		//object downcasting
+		LgSmartTv sRemote= (LgSmartTv)remote;
+		sRemote.playGame();
+			
+	}
+}
+
+
+
+Example2:
+
+
+
+Animal.java: parent class
+------------
+
+package com.chitkara;
+
+public class Animal {
+
+	
+	void makeNoise() {
+		System.out.println("Animal Making Noise");
+	}
+	
+	
+}
+
+
+Dog.java:
+--------
+
+package com.chitkara;
+
+public class Dog extends Animal{
+
+	
+	@Override
+	void makeNoise() {
+	
+		System.out.println("Dog Making noise Bow Bow:");
+		
+	}
+	
+	void shakeHands() {
+		System.out.println("Dog is shaking hands");
+	}
+	
+}
+
+
+
+Cat.java:
+---------
+
+package com.chitkara;
+
+public class Cat extends Animal{
+
+	
+	@Override
+	void makeNoise() {
+	
+		System.out.println("Cat Making Noise meow meow:");
+	}
+}
+
+
+
+Demo.java:
+----------
+package com.chitkara;
+
+public class Demo {
+
+	void handleAnimal(Animal animal) {
+
+		if (animal != null) {
+
+			animal.makeNoise();
+
+			if (animal instanceof Dog) {
+				Dog dog = (Dog) animal;
+				dog.shakeHands();
+			}
+
+		} else {
+
+			System.out.println("Animal is Null...");
+		}
+
+	}
+
+	public static void main(String[] args) {
+
+		Demo d1 = new Demo();
+
+		// d1.handleAnimal(null);
+
+		d1.handleAnimal(new Dog());
+		d1.handleAnimal(new Cat());
+
+	}
+
+}
+
+
+
+
+
+
+
+
+toString() method:
+================
+
+--this method belongs to Object class.
+
+Note: Object class methods are also called as universal method, we can call these methods on any class objects.
+
+public String toString();
+
+--if we call this method on any object then it will convert that object address into the String and return that String.
+
+--the above functionality is written inside the toString() method of the Object class.
+
+
+--toString() method internally called from the println() method.
+
+
+--println--- PrintStream 
+
+println(primitives){
+//print the content
+}
+
+println(){
+//extra line
+}
+
+println(String s){
+print the content of String
+}
+
+println(Object obj){
+
+ String s= obj.toString();
+
+println(s);
+}
+
+
+**Note: if we print any class object reference then it should print the address of that object in the form of String , but if it is not printing the address, and it prints somting else
+(some message, some content) then, the meaning is, that class has overriden the toString() method from the object class.
+
+--toString() is called by the concept of dynamic polymorphism.
+
+--which method will be called decided at runtime. it is also known as late binding or Dynamic method dispatch.
+
+
+early binding vs late binding:
+-----------------------------------
+
+binding : connecting the method body with method call is known as binding.
+
+--if it is decided at compile time then it is known as early binding(method overloading
+or static polymorphism).
+
+--if it is decided by the jvm at runtime then it is known as late binding (method overriding or dynamic polymorphism).
+
+
+Student.java:
+----------------
+
+package com.masai;
+
+public class Student {
+	
+	private int roll;
+	private String name;
+	private int marks;
+	
+
+	public Student() {
+		
+	}
+
+
+	public Student(int roll, String name, int marks) {
+		super();
+		this.roll = roll;
+		this.name = name;
+		this.marks = marks;
+	}
+	
+	
+	
+	public int getRoll() {
+		return roll;
+	}
+	public void setRoll(int roll) {
+		this.roll = roll;
+	}
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public int getMarks() {
+		return marks;
+	}
+	
+	public void setMarks(int marks) {
+		this.marks = marks;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Student [roll=" + roll + ", name=" + name + ", marks=" + marks + "]";
+	}
+
+}
+
+
+
+
+
+
+
+
+
+example3:
+------------
+
+package com.masai;
+
+public class Demo {
+			
+	public Animal getAnimal(String type) {
+		
+		if(type.equals("Cat"))		
+			return new Cat();
+		else if(type.equals("Dog"))
+			return new Dog();
+		else
+			return null;
+	}
+	
+	public static void main(String[] args) {
+				
+		Demo d1 = new Demo();
+		
+		//Dog dog= d1.getAnimal("Dog"); //CE
+		
+		Animal animal= d1.getAnimal("Dog");
+		
+		animal.makeNoise();
+
+		Dog dog= (Dog)animal;
+
+		dog.shakeHands();
+	
+	}
+	
+}
+
+example4:
+-------------
+
+
+package com.masai;
+
+public class Demo {
+			
+	public Animal getAnimal(String type) {
+		
+		if(type.equals("Cat"))		
+			return new Cat();
+		else if(type.equals("Dog"))
+			return new Dog();
+		else
+			return null;
+	}
+	
+	public static void main(String[] args) {
+				
+		Demo d1 = new Demo();
+		
+		//Dog dog= d1.getAnimal("Dog"); //CE
+		
+		Animal animal= d1.getAnimal("Dog"); // if we pass Cat then ?
+		
+		animal.makeNoise();
+
+		//Dog dog= (Dog)animal; // ClassCastException 
+
+		if(animal instanceof Dog){
+
+			Dog dog= (Dog)animal;
+			dog.shakeHands();
+		}
+	
+
+		
+	
+	}
+	
+}
 
 
 
