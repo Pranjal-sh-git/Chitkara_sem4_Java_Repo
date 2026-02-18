@@ -1571,11 +1571,11 @@ Concept:
 With respect to the diagram:
 
 
-1. Object of the super class is created first completly before object of the child class created completly.
+1. Object of the super class is created first completly, before object of the child class created completly.
 
 2.super class obj will be created from the constructor of the subclass.(by using  super(); )
 
-Demo(){
+public Demo(){
 super(); // create the parent class object by executing parent class constructor.
 
 }
@@ -1583,10 +1583,13 @@ super(); // create the parent class object by executing parent class constructor
 
 3. super class object will be created in association with the subclass object.
 
-4. Object class is the super most class of any java class.
+4. java.lang.Object class is the super most class of any java class.
 
 
-Note: meaning of  super() is to  create the parent class object by executing parent class zero arguement constructor.
+Note: meaning of  super(); is to  create the parent class object by executing parent class zero arguement constructor.
+
+
+
 
 Note: if inside the parent class we have only parameterized constructor then inside the child class we need to call that parent class constructor explicitly by supplying appropriate argument ex: super(10);
 otherwise our inheritance will fail.. here we can not depend upon  default constructor of the child class, we need to keep constructor inside the child class explicitly and from there need to call parent class constrcutor,
@@ -1661,7 +1664,17 @@ public class Demo extends A{
 
 
 
-Super class reference and child class object:
+
+
+
+
+
+
+
+
+
+
+
 ===================================
 
 --according to this rule, we can assign any child class object to its parent class reference variable.
@@ -2012,7 +2025,7 @@ println(Object obj){
 
  String s= obj.toString();
 
-println(s);
+	println(s);
 }
 
 
@@ -2022,17 +2035,6 @@ println(s);
 --toString() is called by the concept of dynamic polymorphism.
 
 --which method will be called decided at runtime. it is also known as late binding or Dynamic method dispatch.
-
-
-early binding vs late binding:
------------------------------------
-
-binding : connecting the method body with method call is known as binding.
-
---if it is decided at compile time then it is known as early binding(method overloading
-or static polymorphism).
-
---if it is decided by the jvm at runtime then it is known as late binding (method overriding or dynamic polymorphism).
 
 
 Student.java:
@@ -2180,6 +2182,209 @@ public class Demo {
 
 
 
+final keyword:
+===========
+
+--in java  every keyword has some specific functionality, but there is a keyword whose functionality differs depending upon the situation where it is used i.e final keyword.
+
+1. if we define a variable as final, then we can not change its value elsewhere in program.
+
+Note: if we define any final variable as a instance variable then it should be initialized at the same place or from the contructor.
+
+ex:
+
+Demo.java:
+--------------
+
+public class Demo {
+			
+	
+	final int x=10;
+	
+	final int y;
+	
+	
+	Demo(int y){
+		this.y=y;
+	}
+
+	public static void main(String[] args) {
+			
+		Demo d1= new Demo(20);
+		
+	}	
+	
+}
+
+2. if we define a method as final then we can not override that method inside the child class.
+
+3.if we define a class as final then we can not extends/inherit that class.
+
+String class is a final class.
+
+
+Access modifiers:***G6
+==============
+
+--it specifies the accessebility of a class or its members outside that class or package.
+
+we have 4 types of access modifiers:
+
+1.public  : accessebiltiy is global (other package or other classes also)
+
+2.default: it is similar to public as long as inside the same package, but outside the package it works as private
+
+3.protected: it is simillar to default, but outside the package we can access it by using inheritance.
+
+4.private : the accessebility is restricted to that class only.
+
+
+Note: A normal class/outer-class can only be either default or public but that class members (variables, methods, constructors, inner classes) can be private ,public, default, protected.
+
+Note: we can not apply access modifiers to the local variables.
+
+
+
+--default constructor given by java compiler is always public.
+
+--if we make constructor of a class a default then we can not create its object or extends this class outside that package.
+
+--if we make constructor of a class a private then we can not create its object or extends this class outide that class even in the same package also.
+
+
+
+
+Access Modifier Example: Difference between protected and default:
+==================================================================
+
+--"default" acts as public inside the same package but acts as private outside that package.
+
+--"protected" gives extra access to subclasses even in different packages.
+i.e protected members are accesable outside the package through the subclasses.
+
+Example:
+
+
+com.chitkara/Animal.java:
+-------------------------
+
+package com.chitkara;
+
+public class Animal {
+
+    int age = 5;          // default access
+    protected int weight = 20; // protected access
+
+}
+
+
+
+com.masai/Dog.java:
+-------------------
+
+package com.masai;
+
+import com.chitkara.Animal;
+
+public class Dog extends Animal {
+
+    void show() {
+        // System.out.println(age);   // ERROR (default not visible)
+        System.out.println(weight);   // Allowed (protected via inheritance)
+    }
+
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.show();
+    }
+}
+
+
+
+default: Only inside same package
+protected:  Same package + child class outside package
+
+
+
+
+
+
+
+
+**************************************************************************************************************************
+
+
+Abstract class:
+===========
+
+
+abstract class
+abstract method
+
+
+
+
+--By using an Abstract class we acheive partial abstraction in java.
+
+
+
+Imagine you are developing a forest project with the following class:
+
+
+
+Dog	Cat	Tiger	Lion
+
+
+
+--And the following methods are common in all these classes:
+
+
+eat()
+sleep()
+walk()
+makeNoise()
+
+
+
+--So, here we can make use of the concept of Inheritance to reuse the same code inside all the clases
+--We can create a base/super class called Animal and keep all the common functionalities inside this base class
+
+eat()
+sleep()
+walk()
+makeNoise()
+
+
+--and extend this Animal class inside all the child classes.
+
+--This hirarechy can be further divided into one more category
+
+
+
+
+
+
+
+		Animal
+
+
+DomesticAnimal		WildAnimal
+
+
+Dog	Cat		Tiger	Lion
+
+
+
+
+
+Dog extends Animal;
+
+
+Dog tommy = new Dog();
+
+Animal tommy = new Dog();
+
+Animal tommy = new Animal();
 
 
 
@@ -2191,3 +2396,697 @@ public class Demo {
 
 
 
+
+
+
+Now think it like:
+
+
+Dog tommy = new Dog(); // OK
+
+Animal tommy = new Dog(); // OK
+
+Animal tommy = new Animal(); // ? 
+
+
+
+
+--In java, if we want to restrict the user, so that he can not instantiate or create object of a class directly then marks that class as abstract class.
+
+--if we make constructor as private then we can not create its object outside that class
+but inside the class we can create its object
+
+
+Note: an abstract class does not have any meaning, unless it is extended by the child class, and we are allowed to create only child class object.
+
+
+abstract Animal
+
+eat()
+sleep()
+walk()
+makeNoise()
+
+
+
+Dog	Cat	Tiger	Lion
+
+
+
+Dog tommy = new Dog();
+
+Animal tommy = new Dog();
+
+Animal tommy = new Animal(); //CE
+
+
+
+
+
+
+****************************************************************************************************************************
+
+
+
+
+
+there are 3 differences between a normal class and an abstract class:
+====================================================
+
+1. for an abstract class we can not create its object directly,(new keyword is not applicable)
+
+2.inside an abstract class, we **may have an abstract method also.(it is not mandatory)
+
+Note: we can have an empty abstract class also.
+
+3. final keyword is not applicable with the abstract class (final and abstract both are enimies)
+
+Note: apart from above 3 diff bt normal and abstract class, we can do all the  things with the abstract class whatever we can do with the normal class.
+
+Abstract Class Can Have:
+-----------------------
+
+--Like normal class, it can have:
+
+variables
+
+constructors
+
+concreate Methods
+
+abstract methods
+
+static members
+
+final methods
+
+
+
+
+abstract method:
+--------------------
+
+--method with body is also knwon as implemented method or concreate method
+
+--method without body is known as abstract method or unimplemented method. these types of methos should have abstract keyword.
+
+ex:
+
+public abstract void makeNoise();
+
+
+Note: - inside a normal class/concreate class, we can not have an abstract method.
+
+--if we want to place an abstract method inside our class then we need to mark that class also as an abstract class.
+
+
+***Note: an abstract method can not be static.
+
+
+
+
+ex:
+
+Animal.java:
+-----------
+
+abstract class Animal {
+    void eat() {
+        System.out.println("Animal eats");
+    }
+
+    void sleep() {
+        System.out.println("Animal sleeps");
+    }
+
+    abstract void makeNoise();
+}
+ 
+
+
+Dog.java: // child class
+---------
+
+class Dog extends Animal {
+
+    void makeNoise() {
+        System.out.println("Dog barks");
+
+    }
+}
+
+
+
+Uses:
+
+
+//Animal a = new Animal();// CE
+Animal a = new Dog();
+a.makeNoise();
+
+
+
+
+
+
+
+rule:
+***Note: if an abstract class having any abstract method then we must override that method inside  the child class otherwise we need to mark that child class also as an abstract class.
+
+
+A.java:
+-----------
+
+package com.masai;
+
+public abstract class A{
+	
+	
+	
+
+		//unimplemented method or abstract method
+		 public abstract void funAbs1();
+	 
+		//unimplemented method or abstract method
+		 public abstract void funAbs2();
+		
+		//unimplemented method or abstract method
+		 public abstract void funAbs3();
+		
+	
+	
+		//implemented method, inside child class we can not override this
+	 	final void funA() {
+		
+			System.out.println("inside funA of A");
+		}
+	
+
+}
+
+
+AChild.java:
+---------------
+
+
+package com.masai;
+
+public abstract class AChild extends A{
+
+	@Override
+	public void funAbs1() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void funAbs2() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+
+
+AGrandChild.java:
+----------------------
+
+package com.masai;
+
+public class AGrandChild extends AChild{
+
+	@Override
+	public void funAbs3() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+
+Normal class
+
+A a1 = ?  // 3 possible values
+
+A a1 = new A(); // same class obj
+A a1 = new AChild();//  child class obj
+A a1=null;
+
+
+Abstract class:
+
+Abs a1 =? // 2 possible values
+
+Abs a1 = new Abs();// CE
+Abs a1 = new AbsChild(); 
+Abs a1 = null;
+
+
+Abstract object created along with its child class object.
+
+
+example:
+
+A.java:
+-----------
+
+package com.masai;
+
+public abstract class A{
+	
+	
+	public A() {
+		System.out.println("inside constructor of A ");
+	}
+	
+
+	//unimplemented method or abstract method
+	 public abstract void funAbs1();
+	
+	
+	//implemented method
+	 void funA() {
+		
+		System.out.println("inside funA of A");
+	}
+	
+
+}
+
+
+
+
+AChild.java:
+--------------
+
+package com.masai;
+
+public class AChild extends A{
+
+	
+	public AChild() {
+		System.out.println("inside the constructor of AChild");
+	}
+	
+	
+	
+	@Override
+	public void funAbs1() {
+		
+		System.out.println("inside funAbs() of AChild");
+		
+	}
+}
+
+Demo.java:
+--------------
+
+package com.masai;
+
+public class Demo {
+	
+
+	public static void main(String[] args) {
+		
+		A a1 = new AChild();
+		
+		a1.funA();
+		a1.funAbs1();
+	
+	
+	}	
+
+}
+
+
+
+
+
+Student Task:
+=============
+
+1. Predict the output:
+
+abstract class A {
+    void show() {
+        System.out.println("A show");
+    }
+}
+
+
+
+class B extends A {
+
+}
+
+public class Demo {
+
+    public static void main(String[] args) {
+        A obj = new B();
+        obj.show();
+    }
+}
+
+
+
+
+2. Predict the output:
+
+
+abstract class A {
+    int x = 5;
+}
+
+class B extends A {
+    int x = 10;
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        A obj = new B();
+        System.out.println(obj.x);
+    }
+}
+
+
+3. Predict the output:
+
+abstract class A {
+    abstract void show();
+}
+
+class B extends A {
+
+}
+
+public class Demo {
+
+public static void main(String[] args)
+{
+
+	A a1 = new B();
+}
+
+}
+
+
+
+
+4. Predict the output:
+
+
+abstract class A {
+    abstract void show();
+}
+
+class B extends A {
+    void show() {
+        System.out.println("B");
+    }
+}
+
+class C extends B {
+    void show() {
+        System.out.println("C");
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        A obj = new C();
+        obj.show();
+    }
+}
+
+
+
+5. Predict the output:
+
+
+abstract class A {
+    final void show() {
+        System.out.println("A show");
+    }
+}
+
+class B extends A {}
+
+public class Demo {
+    public static void main(String[] args) {
+        A obj = new B();
+        obj.show();
+    }
+}
+
+
+
+Activity Question 1 — Shape Drawing System
+----------------------------------------
+
+
+Problem Statement:
+
+--A drawing application stores shape details in a parent class.
+
+Each shape has:
+
+--Shape name
+
+--Color
+
+These values must be initialized using the parent constructor.
+
+The application should also have a final method to display shape details which child classes cannot modify.
+
+Requirements
+
+--Create abstract class Shape.
+
+--Add protected variables:
+
+shapeName
+
+color
+
+--Initialize them via constructor.
+
+Create a final method showDetails().
+
+Create abstract method calculateArea().
+
+Create child classes:
+
+--Circle
+
+--Rectangle
+
+
+Solution:
+---------
+abstract class Shape {
+    protected String shapeName;
+    protected String color;
+
+    Shape(String shapeName, String color) {
+        this.shapeName = shapeName;
+        this.color = color;
+    }
+
+    final void showDetails() {
+        System.out.println("Shape: " + shapeName + ", Color: " + color);
+    }
+
+    abstract void calculateArea();
+}
+
+class Circle extends Shape {
+    double r;
+
+    Circle(String color, double r) {
+        super("Circle", color);
+        this.r = r;
+    }
+
+    void calculateArea() {
+        System.out.println("Area: " + (3.14 * r * r));
+    }
+}
+
+class Rectangle extends Shape {
+    int l, b;
+
+    Rectangle(String color, int l, int b) {
+        super("Rectangle", color);
+        this.l = l;
+        this.b = b;
+    }
+
+    void calculateArea() {
+        System.out.println("Area: " + (l * b));
+    }
+}
+
+public class Demo1 {
+    public static void main(String[] args) {
+
+        Shape s1 = new Circle("Red", 5);
+        Shape s2 = new Rectangle("Blue", 4, 6);
+
+        s1.showDetails();
+        s1.calculateArea();
+
+        System.out.println();
+
+        s2.showDetails();
+        s2.calculateArea();
+    }
+}
+
+
+Activity Question 2 — Employee Payroll System
+-------------------------------------------
+
+Problem Statement
+
+--Employee data is managed using an abstract parent class.
+
+--Each employee has:
+
+Name
+
+Employee ID
+
+A final method prints employee info, and child classes calculate salary differently.
+
+
+Requirements: 
+
+Create:
+
+Abstract class Employee
+
+Final method showInfo()
+
+Abstract method calculateSalary()
+
+Child classes: FullTimeEmployee, PartTimeEmployee
+
+
+Solution:
+---------
+
+abstract class Employee {
+    String name;
+    int id;
+
+    Employee(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    final void showInfo() {
+        System.out.println("Name: " + name + ", ID: " + id);
+    }
+
+    abstract void calculateSalary();
+}
+
+class FullTimeEmployee extends Employee {
+    FullTimeEmployee(String name, int id) {
+        super(name, id);
+    }
+
+    void calculateSalary() {
+        System.out.println("Salary: 50000");
+    }
+}
+
+class PartTimeEmployee extends Employee {
+    PartTimeEmployee(String name, int id) {
+        super(name, id);
+    }
+
+    void calculateSalary() {
+        System.out.println("Salary: 20000");
+    }
+}
+
+public class Demo2 {
+    public static void main(String[] args) {
+
+        Employee e1 = new FullTimeEmployee("Ravi", 101);
+        Employee e2 = new PartTimeEmployee("Anita", 102);
+
+        e1.showInfo();
+        e1.calculateSalary();
+
+        System.out.println();
+
+        e2.showInfo();
+        e2.calculateSalary();
+    }
+}
+
+
+
+
+Activity Question 3 — Bank Account System
+---------------------------------------
+
+Problem Statement
+
+--Bank accounts store account numbers using a constructor in parent class.
+
+Requirements:
+
+Create abstract class BankAccount.
+
+Store account number.
+
+Create abstract method withdraw().
+
+Create SavingsAccount and CurrentAccount.
+
+
+
+Solution:
+---------
+abstract class BankAccount {
+    String accNo;
+
+    BankAccount(String accNo) {
+        this.accNo = accNo;
+    }
+
+    abstract void withdraw();
+}
+
+class SavingsAccount extends BankAccount {
+    SavingsAccount(String accNo) {
+        super(accNo);
+    }
+
+    void withdraw() {
+        System.out.println(accNo + " Withdraw from Savings");
+    }
+}
+
+class CurrentAccount extends BankAccount {
+    CurrentAccount(String accNo) {
+        super(accNo);
+    }
+
+    void withdraw() {
+        System.out.println(accNo + " Withdraw from Current");
+    }
+}
+
+public class Demo3 {
+    public static void main(String[] args) {
+
+        BankAccount b1 = new SavingsAccount("ACC101");
+        BankAccount b2 = new CurrentAccount("ACC202");
+
+        b1.withdraw();
+        b2.withdraw();
+    }
+}
