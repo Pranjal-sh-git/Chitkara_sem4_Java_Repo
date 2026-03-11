@@ -2223,7 +2223,7 @@ public class Demo {
 String class is a final class.
 
 
-Access modifiers:***G6
+Access modifiers:
 ==============
 
 --it specifies the accessebility of a class or its members outside that class or package.
@@ -2315,7 +2315,7 @@ protected:  Same package + child class outside package
 
 
 Abstract class:
-===========
+=============
 
 
 abstract class
@@ -2365,7 +2365,7 @@ makeNoise()
 
 
 
-		Animal
+		abstract Animal
 
 
 DomesticAnimal		WildAnimal
@@ -2395,6 +2395,19 @@ Animal tommy = new Animal();
 
 
 
+Animal tommy = new Dog();
+
+Animal tommy = new Animal();//CE
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2407,6 +2420,15 @@ Dog tommy = new Dog(); // OK
 Animal tommy = new Dog(); // OK
 
 Animal tommy = new Animal(); // ? 
+
+
+abstract method
+
+
+ 
+
+
+abstract class
 
 
 
@@ -3095,6 +3117,8 @@ public class Demo3 {
 
 
 
+
+
 Interface in Java:
 ==================
 
@@ -3106,7 +3130,7 @@ In Java there are 3 types of valid structures are available:
 
 2. Partially implemented structure: Abstract class
 
-3. Full unimplemented structure: interface // till Java 8
+3. Full unimplemented structure: interface // till Java 7
 
 
 
