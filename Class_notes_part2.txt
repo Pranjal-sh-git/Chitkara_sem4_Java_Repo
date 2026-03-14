@@ -3740,12 +3740,237 @@ class Student implements Serializable{
 
 
 
+String class:
+==============
+
+Example: Checking a 2 string are anagram or not ?
+
+Demo.java
+---------
+
+import java.util.Arrays;
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        String s1 = "listen";
+        String s2 = "silent";
+
+        char[] a1 = s1.toLowerCase().toCharArray();
+        char[] a2 = s2.toLowerCase().toCharArray();
+
+        Arrays.sort(a1);
+        Arrays.sort(a2);
+
+        if(Arrays.equals(a1, a2))
+            System.out.println("Strings are Anagram");
+        else
+            System.out.println("Strings are NOT Anagram");
+    }
+}
 
 
 
 
 
+toCharArray	O(n)
+Sorting	O(n log n)
+Comparison	O(n)
 
 
 
 
+
+Example2: Without sorting...
+
+
+
+
+public class AnagramExample {
+
+    public static void main(String[] args) {
+
+        String s1 = "listen";
+        String s2 = "silent";
+
+        if(isAnagram(s1, s2))
+            System.out.println("Strings are Anagram");
+        else
+            System.out.println("Strings are NOT Anagram");
+    }
+
+    static boolean isAnagram(String s1, String s2){
+
+        if(s1.length() != s2.length())
+            return false;
+
+        int[] count = new int[256];
+
+        for(int i=0;i<s1.length();i++){
+            count[s1.charAt(i)]++;
+            count[s2.charAt(i)]--;
+        }
+
+        for(int x : count)
+            if(x != 0)
+                return false;
+
+        return true;
+    }
+}
+
+
+
+
+
+Length check	O(1)
+Loop over string	O(n)
+Second loop check	O(256)
+
+
+
+
+Example: Reversing a String without reverse() method
+
+
+Demo.java
+
+package com.chitkara;
+
+public class Demo {
+	
+	
+	
+	public static String reverseString(String orignalString) {
+		
+		StringBuilder sb = new StringBuilder("");
+		
+ 		
+		
+		
+		char[] chr= orignalString.toCharArray();
+		
+		
+		for(int i= chr.length-1; i>=0; i--) {
+			
+			sb.append(chr[i]);
+		}
+		
+	
+		
+		return sb.toString();
+		
+	}
+	
+	
+
+	public static void main(String[] args) {
+		
+		
+		System.out.println(reverseString("welcome"));	
+		
+	}
+
+}
+
+
+Example: Difference betweeen concating a string using + and using the append() method of StringBuilder
+
+
+Demo.java:
+------------
+
+package com.chitkara;
+public class Demo {
+
+	public static void main(String[] args) {
+
+
+		long startTime = System.currentTimeMillis();
+
+		String str = "";
+
+		for (int i = 0; i < 100000; i++) {
+
+			str = str + "Java";
+
+		}
+
+		long endTime = System.currentTimeMillis();
+
+		System.out.println("String Time: " + (endTime - startTime) + " ms");
+
+
+
+		startTime = System.currentTimeMillis();
+
+
+
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < 100000; i++) {
+
+			sb.append("Java");
+
+		}
+
+		endTime = System.currentTimeMillis();
+
+		System.out.println("StringBuilder Time: " + (endTime - startTime) + " ms");
+
+	}
+
+}
+
+
+
+Example: Reversing each word in a String:
+
+
+	public String reverseEachWord(String s1) {
+
+			String[] words = s1.split(" ");
+
+	        StringBuilder result = new StringBuilder();
+
+	        for (String word : words) {
+
+	            StringBuilder sb = new StringBuilder(word);
+
+	            result.append(sb.reverse()).append(" ");
+	        }
+
+	        return result.toString();
+		
+	}
+	
+
+Example: another way without using split() method
+
+
+public String reverseEachWord(String s1) {
+
+        StringBuilder word = new StringBuilder();
+        StringBuilder result = new StringBuilder();
+
+        for(int i = 0; i < s1.length(); i++)
+        {
+            char ch = s1.charAt(i);
+
+            if(ch != ' ')
+            {
+                word.append(ch);
+            }
+            else
+            {
+                result.append(word.reverse()).append(" ");
+                word.setLength(0);
+            }
+        }
+
+        result.append(word.reverse());
+
+        return result.toString();
+    }
+}
