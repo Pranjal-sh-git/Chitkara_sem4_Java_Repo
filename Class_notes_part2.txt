@@ -3835,6 +3835,7 @@ Example: Reversing a String without reverse() method
 
 
 Demo.java
+-----------
 
 package com.chitkara;
 
@@ -3930,7 +3931,7 @@ Example: Reversing each word in a String:
 
 	public String reverseEachWord(String s1) {
 
-			String[] words = s1.split(" ");
+		String[] words = s1.split(" ");
 
 	        StringBuilder result = new StringBuilder();
 
@@ -3941,7 +3942,7 @@ Example: Reversing each word in a String:
 	            result.append(sb.reverse()).append(" ");
 	        }
 
-	        return result.toString();
+	        return result.toString().trim();
 		
 	}
 	
