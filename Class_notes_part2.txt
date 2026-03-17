@@ -4023,7 +4023,7 @@ public static void main(String[] args) {
 
 --for each and every logical error there is a corresponding exception class in the java.lang package.
 
----whenever jvm encounters a logical error,it creats an objects of the coresponding exception class and since this this object is not explicitjy handled this object reaches back to the jvm ,jvm accept this object and terminets the program .
+---whenever jvm encounters a logical error,it creats an objects of the coresponding exception class and since this this object is not explicitly handled this object reaches back to the jvm ,jvm accept this object and terminets the program .
 
 --now if we r able to handle those exception class object,we can prevent the program from getting termineted abnormally.
 
@@ -4071,49 +4071,73 @@ Note:-
 2.if no exp class object is created in the try block control will never enter the catch block.
 
 3.every try block should be associated with atleast one catch block.
+
 4.a try block can have more than one catch block.
 ex:-
-class Test 
-{
-public static void main(String[] args) 
-{
-try{
-A a1=null;
-int i=Integer.parseInt(args[0]);
-int j=Integer.parseInt(args[1]);
-int x=i/j;
-if(x>0)
-{
-a1=new A();
+
+
+package com.chitkara;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Demo {
+
+	public static void main(String[] args) {
+
+		System.out.println("Start of main....");
+
+		Scanner sc = new Scanner(System.in);
+		
+		try {
+			String s1 = null;
+
+			System.out.println("Enter number 1: ");
+			int num1 = sc.nextInt();
+
+			System.out.println("Enter number 2: ");
+			int num2 = sc.nextInt();
+
+			int result = num1 / num2;
+
+			if (result > 5) {
+				s1 = "Welcome";
+			}
+
+			System.out.println(s1.toUpperCase());
+
+		} catch (ArithmeticException ae) {
+			ae.printStackTrace();
+			System.out.println("num2 can't be zero");
+		} catch (InputMismatchException ime) {
+
+			System.out.println("Please pass the proper numbers(digit)");
+			ime.printStackTrace();
+		} catch (NullPointerException npe) {
+			System.out.println("result is not more than 5 so s1 is null");
+			npe.printStackTrace();
+		}
+
+		System.out.println("End of main...");
+	}
+
 }
-a1.fun1();
-}
-catch(ArrayIndexOutOfBoundsException ab)
-{
-//System.out.println(ab);
-ab.printStackTrace();
-}
-catch(ArithmeticException ae)
-{
-ae.printStackTrace();
-}
-catch(NullPointerException np)
-{
-np.printStackTrace();
-}
-System.out.println("inside main()");
-}}
 	
 ---disadvantage of this approach:-
 
 --if statement in the try block r more that generate the exception class objects then we should have those many catch blocks which is not feasiable.
+
 --the user should have through knowledge regarding what statement is proven to generate what type of exception class object ,this would be very difficault.
 
 ---to overcome the above disadv we have to define catch block in such a way that object of any exception class can be assigned to the refference defined in the catch block.
+
 Hence we define Exception class reff in the catch block .
+
 --Exception class is the super class of all the exception classes.
 
                               Object
+                                |
+			     Throwable
                                 |
                        -------------------------
                        |                       |
@@ -4181,6 +4205,10 @@ s.o.p(e);                   |
 such blocks which r not going to get executed at any instance of time r known as unreachable blocks.and unreachable blocks r not supported by java,hence whenever compiler finds any unreachable blocks in the program it gives a compilation error.
 
 note:-whenever we need to define multiple catch blocks and if catch(Exception e) is one among those then that catch block must be the last catch(Exception e) block.
+
+
+
+
 
 
 ---The next importent concept of exception handling is checked exception and unchecked exception.
