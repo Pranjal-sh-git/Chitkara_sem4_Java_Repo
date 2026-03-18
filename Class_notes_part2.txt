@@ -4066,6 +4066,8 @@ uses of Exception Handling:-
 3.we r not allowing the jvm to terminate the entire program. only the try block in which the error has occured would be terminated.
 
 Note:-
+
+
 1.once the control enters in the catch block it executes the statements in the catch block and moves further.it will not comeback to the try block again because of which the catch block was executed.
 
 2.if no exp class object is created in the try block control will never enter the catch block.
@@ -4073,6 +4075,8 @@ Note:-
 3.every try block should be associated with atleast one catch block.
 
 4.a try block can have more than one catch block.
+
+
 ex:-
 
 
@@ -4146,6 +4150,7 @@ Hence we define Exception class reff in the catch block .
                   RuntimeException
  
 ---We have five altogether five keywords in the concept of exception handling:-
+
 1.try 2.catch 3.throw 4.throws 5.finally
 
 ---logiacal errors r of two types:-
@@ -4198,13 +4203,16 @@ s.o.p(e);                   |
 }                           |
 -----------------------------
 
---- now  if an exception is raised in the try block,it will be transfered to the immidoate catch block, if that catch block is not capable of handling that exception then it is transfered to the next catch block and so on..
+--- now  if an exception is raised in the try block,it will be transfered to the immidiate catch block, if that catch block is not capable of handling that exception then it is transfered to the next catch block and so on..
 
 ---in the above program the very first catch block Exception  class reff is capable of recieving any exception class object.
 -thus remaining catch blocks r not going to get executed at any instance of time.
 such blocks which r not going to get executed at any instance of time r known as unreachable blocks.and unreachable blocks r not supported by java,hence whenever compiler finds any unreachable blocks in the program it gives a compilation error.
 
 note:-whenever we need to define multiple catch blocks and if catch(Exception e) is one among those then that catch block must be the last catch(Exception e) block.
+
+--Siblings can be in any order but parent must be at last..
+
 
 
 
@@ -4237,26 +4245,37 @@ and it gets the free pass from the compiler at compile time.
 throws:-
 --------
 ex:-
-class Test
-{
-p.v.fun1(int i,int j)
-{
-A a1=null;
-int x=i/j;
-if(x>10)
-{
-a1=new A();
+class A {
+    void funA() {
+        System.out.println("Inside funA()");
+    }
 }
-a1.funA();
-}
-p.s.v.m(--){
-Test t=new Test();
-t.fun1(10,2);
-s.o.p("inside main()");
-}}
 
-let us assume some programer has designed a class Test,inside that one method fun1()
-is there,and that method we r using in our class,now how can we know what type of exception object will be created because of the statement present in the fun1().
+class Test {
+
+    public void fun1(int i, int j) {
+        A a1 = null;
+
+        int x = i / j;
+
+        if (x > 10) {
+            a1 = new A();
+        }
+
+        a1.funA();   // possible problem here
+    }
+
+    public static void main(String[] args) {
+
+        Test t = new Test();
+        t.fun1(10, 2);
+
+        System.out.println("inside main()");
+    }
+}
+
+
+let us assume some programer has designed a class Test,inside that one method fun1() is there,and that method we r using in our class,now how can we know what type of exception object will be created because of the statement present in the fun1().
 
 ---to solve this problem the developer himself will provide a facility i.e along with the fun defination, he will mention the type of the exception that might be raised inside the fun using throws keyword.
 
@@ -4270,23 +4289,31 @@ now caller of that method has the responsibility to handle that obj or caller ca
 
 
 so-- 
-void fun1(int i,int j)throws ArException,NullPointerException{---}
+void fun1(int i,int j)throws ArithmaticException,NullPointerException{
+
+---
+
+}
 
 --since fun1() is throwing unchecked exception it is not mandatory to call fun1() inside try catch block from its calling place.
 --but if we use throws Exception then it is mandatory to call fun1() inside try-catch block from its calling place bcoz throws Exception indicates that fun1() can throw checked exception as well as unchecked exception.
 
 ex:-
 
-class B{
-p.v.funA()throws ClassNotFoundExcetion
-{
-Class.forName("A");
+class B {
+
+    public void funA() throws ClassNotFoundException {
+
+        Class.forName("A");
+
+    }
+
 }
-}
+
 
 ---in the above program we have a statement inside funA() which is proven to generate a checked exception now if we do not want to handle it inside the fun then we need to mention throws <Exception> along with the fun signature but the condition is that at the calling place funA() has to be called within the try-catch block.
 
-note:-by seeing throws keyword along with the fun deff we can understand that the fun has the statement which r proven to generate the mentioned exception class object and they r not handled in the fun itself.
+note:-by seeing throws keyword along with the fun defination we can understand that the fun has the statement which r proven to generate the mentioned exception class object and they r not handled in the fun itself.
 
 Note:-even though throws is applicable with main() also it is highly recomended not to use throws with main().
 
@@ -4304,24 +4331,28 @@ throws keyword and constructor:-
 definetly we can use throws keyword constructor also bcoz constructor may have many number of statement which r proven to generate exception class object.
 
 ex:-
-class Test{
-int z=20;
-Test()throws Exception
-{
-int i=10;
-int j=0;
-int x=i/j;
-}
-p.s.v.m(--){
-try{
-Test t=new Test();
-}
-catch(Exception e){
-e.printStackTrace();
-}
-s.o.p(t.z);//CE bcoz t is the local to try...
-}
+class Test {
 
+    int z = 20;
+
+    Test() throws Exception {
+        int i = 10;
+        int j = 0;
+        int x = i / j;   // ArithmeticException
+    }
+
+    public static void main(String[] args) {
+
+        try {
+            Test t = new Test();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(t.z);   // Compile Time Error
+    }
+}
 
 
 method overriding rules wtih exception:-
@@ -4363,96 +4394,598 @@ Handling the exception of super class constructor in their subclass.
 ---now how to create the object of subclass when superclass constructor throws an Exception.
 
 ex:-
+class A {
 
-class A{
-int i=10;
-A()throws Exception
-{
-s.o.p("inside A()");
-}}
-class B extends A{
-//B()throws Exception{
-//}
-p.s.v.m(--){
-try{
-B b1=new B();
-}
-catch(Exception ee){
-s.o.p(ee);}
+    int i = 10;
 
+    A() throws Exception {
+        System.out.println("inside A()");
+    }
 
-finally keyword:-
------------------
-
----the finally keyword ensure that all the statements presents inside the finally block r compulsory executed.
-
-Q/what r the need of the finally block?
-A/-sometime some statement inside a try block need to be executed compulsory wheather exception occur or not.
-
-ex:-
-
-try{
-get connection to a printer
---
---
-con.close();
-}
-catch(Exception ee){
-s.o.p(ee);
 }
 
-now suppose that after getting con to a printer let us assume that an exception is occured in one of the statement then the control comes out of the try without executing the rest of the statement.
-so the con.close(); will not be executed.
----so the resource printer has been allocated to our system but it is not released.
-this is ineffective resource management.
+class B extends A {
 
----to overcome this problem we may write con.close(); outside the try-catch,not only con.close(); infact any statement which need to be excecuted compulsory supposed to be placed outside try-catch block.---or we can take the connecton outside the fun and close that inside try and catch also...but(code duplication....)
----this solution works well,but it is not at all recomended bcoz
---by doing so we breaks the coding standards
+    // B() throws Exception {
+    // }
 
-a.integrity:-it says that all the statement releated to one specific block should be in that block only.
-b.modularity:-code gets mixup with other statement present in the funtion.thus there is no proper seperation of logic.
+    public static void main(String[] args) {
 
---finally block assosiated with the try block just as the catch block. 
+        try {
+            B b1 = new B();
+        }
+        catch (Exception ee) {
+            System.out.println(ee);
+        }
 
-note:-A try can have any number of catch block but it can have only one finally block.
+    }
+}
 
-Q/can we define a try block without a catch block?
-A/yes,by defining a finally block with the try block.
---but it is not recomended.
 
-UserDefined Exception:-
+
+finally Keyword in Java
+======================
+
+
+The finally block is used with a try block to ensure that certain statements are always executed, whether an exception occurs or not.
+
+Definition
+
+The finally block contains statements that are guaranteed to execute after the execution of the try and catch blocks.UserDefined Exception:-
+
+
+
+
+Syntax:
+--------
+
+try {
+    // risky code
+}
+catch(Exception e) {
+    // exception handling
+}
+finally {
+    // cleanup code (always executes)
+}
+
+
+Need of the finally Block:
+-------------------------
+
+Sometimes some statements inside a try block must be executed compulsorily, regardless of whether an exception occurs or not.
+
+These statements are usually related to resource cleanup, such as:
+
+--Closing files
+
+--Closing database connections
+
+--Closing network connections
+
+--Releasing system resources
+
+
+Example Problem Without finally:
+-------------------------------
+
+try {
+    // get connection to printer
+    connectPrinter();
+
+    printDocument();
+
+    closeConnection();
+}
+catch(Exception e) {
+    System.out.println(e);
+}
+
+Problem:
+
+--Suppose an exception occurs during: printDocument();
+
+--Then the program immediately jumps to the catch block.
+
+Therefore:
+
+closeConnection(); will not execute.
+
+--The printer resource remains allocated but not released.
+
+--This leads to ineffective resource management.
+
+Possible Solution (Not Recommended):
+------------------------------------
+
+We may try writing the cleanup code outside the try-catch.
+
+try {
+    connectPrinter();
+    printDocument();
+}
+catch(Exception e) {
+    System.out.println(e);
+}
+
+closeConnection();
+
+Although this works, it is not recommended.
+
+
+Why This Approach is Not Recommended
+
+It breaks good coding principles.
+
+1. Integrity
+
+--All statements related to a specific task should remain within the same logical block.
+
+--Moving statements outside breaks the logical grouping of code.
+
+2. Modularity
+
+--The code becomes mixed with unrelated statements, making it difficult to understand and maintain.
+
+--There is no proper separation of logic.
+
+
+Correct Solution Using finally
+---------------------------
+
+try {
+    connectPrinter();
+    printDocument();
+}
+catch(Exception e) {
+    System.out.println(e);
+}
+finally {
+    closeConnection();
+}
+
+--Now the closeConnection() statement will always execute, whether an exception occurs or not.
+
+Important Notes:
+
+1. A try block can have: 
+
+--multiple catch blocks
+--only one finally block
+
+Example:
+
+try {
+
+}
+catch(IOException e) {
+
+}
+catch(ArithmeticException e) {
+
+}
+finally {
+
+}
+
+
+2. finally is optional
+
+--But if used, only one finally block is allowed.
+
+
+3. A try block can exist without a catch block, if it has a finally block.
+
+Example:
+
+try {
+    System.out.println("Hello");
+}
+finally {
+    System.out.println("Finally block");
+}
+
+Output
+
+Hello
+Finally block
+
+--However, this approach is generally not recommended, because exceptions remain unhandled.
+
+
+
+Real-Life Analogy: 
+----------------
+
+--Think of finally block as cleaning the room after work.
+
+Even if:
+
+--work finishes successfully
+
+--work fails due to some problem
+
+--You still clean the room before leaving.
+
+Common Uses of finally
 ----------------------
 
-till now we have used predefined exception classes whose objects were created by jvm becoz of predefined logical error
+finally is commonly used for:
 
----in simmilar manner,we can define our own exception classes whose objects will be created when user defined logical error occurs.
+--Closing files
 
----strictly speaking the user defined logical error is not a logiacal error from the jvm's point of view.
+--Closing database connections
 
----to create a user defined Exception 
+--Releasing network sockets
 
-class InvalidAgeException extends Exception
-{
-public String toString()
-{
-String s1="Invalid Age value is passed";
-return s1;
-}}
+--Releasing locks
 
-class Emp{
-p.int getPension(int age,int sal)throws Exception
-{
-int pen=0;
-if(age>45 && age <100)
-{
-pen=(age * sal)/100;
+Example:
+
+
+FileReader fr = null;
+
+try {
+    fr = new FileReader("data.txt");
 }
-else
-{
-InvalidAgeException ae=new InvalidAgeException();
-throw ae;
+catch(Exception e) {
+    System.out.println(e);
 }
-return pen;
-}}
+finally {
+    if(fr != null)
+        fr.close();
+}
+
+
+
+User-Defined exception:
+======================
+
+Introduction
+
+So far, we have used predefined exception classes such as:
+
+ArithmeticException
+
+NullPointerException
+
+ArrayIndexOutOfBoundsException
+
+IOException
+
+--The objects of these exceptions are created automatically by the JVM when a predefined logical error occurs.
+
+Example:
+
+int x = 10 / 0;
+
+JVM automatically creates:
+
+--ArithmeticException
+
+
+What is a User-Defined Exception?
+------------------------------
+
+--Sometimes the programmer wants to define their own logical rules.
+
+--If those rules are violated, we may want to generate our own exception.
+
+--These exceptions are called User-Defined Exceptions (Custom Exceptions).
+
+Definition
+
+--A user-defined exception is a custom exception class created by the programmer to represent application-specific errors.
+
+Example situations:
+
+Invalid age
+
+Insufficient balance
+
+Invalid password
+
+Invalid marks
+
+
+Important Point:
+---------------
+
+--A user-defined logical error is not considered an error by the JVM.
+
+--Therefore the programmer must explicitly create and throw the exception.
+
+
+Steps to Create a User-Defined Exception
+-------------------------------------
+
+Step 1
+
+--Create a class that extends Exception
+
+Step 2
+
+--Override the toString() or getMessage() method
+
+Step 3
+
+--Create an object of that exception
+
+Step 4
+
+--Throw it using the throw keyword
+
+
+Example: Invalid Age Exception
+
+Step 1: Create Custom Exception Class
+
+class InvalidAgeException extends Exception {
+
+    InvalidAgeException(String msg) {
+        super(msg);
+    }
+
+}
+
+
+Step 2: Create a Class That Uses This Exception
+
+
+class Emp {
+
+    public int getPension(int age, int sal) throws Exception {
+
+        int pen = 0;
+
+        if(age > 45 && age < 100) {
+            pen = (age * sal) / 100;
+        }
+        else {
+            InvalidAgeException ae = new InvalidAgeException();
+            throw ae;
+        }
+
+        return pen;
+    }
+
+}
+
+
+Step 3: Use the Method in main()
+
+class Test {
+
+    public static void main(String[] args) {
+
+        Emp e = new Emp();
+
+        try {
+            int p = e.getPension(30, 50000);
+            System.out.println("Pension = " + p);
+        }
+        catch(Exception ex) {
+            System.out.println(ex);
+        }
+
+    }
+}
+
+
+Constructor Throwing Checked Exception:
+------------------------------------
+
+
+Rule
+
+--If a constructor of a class declares a checked exception, then creating an object of that class must either:
+
+--handle the exception using try-catch, or
+
+--declare the exception using throws.
+
+--Because of this, we cannot directly create the object as an instance member of another class without handling the exception.
+
+Example
+
+class A {
+
+    A() throws Exception {
+        System.out.println("Constructor of A");
+    }
+
+}
+
+Now consider another class:
+
+class B {
+
+    A a1 = new A();   // Compile Time Error
+
+}
+
+
+Why Error?
+
+A() throws a checked exception, but instance variable initialization cannot handle the exception directly.
+
+Compiler error:
+
+Unhandled exception type Exception
+
+
+Correct Approach
+----------------
+
+Create the object inside the constructor of the class.
+
+class B {
+
+    A a1;
+
+    B() throws Exception {
+        a1 = new A();
+    }
+
+}
+
+Or handle it using try-catch.
+
+
+Java 7 Features:
+---------------
+
+1. Single Catch Block for Multiple Exceptions (Java 7 Feature)
+
+It allows one catch block to handle multiple exceptions.
+
+Syntax
+
+Exceptions are separated using the pipe symbol |.
+
+catch(ClassNotFoundException | IOException e) {
+    e.printStackTrace();
+}
+
+
+Example
+
+import java.io.*;
+
+class Demo {
+
+    public static void main(String[] args) {
+
+        try {
+
+            int x = 10 / 0;
+
+            Class.forName("Test");
+
+        }
+        catch(ArithmeticException | ClassNotFoundException e) {
+
+            System.out.println(e);
+
+        }
+
+    }
+
+}
+
+
+Important Point
+
+--In a multi-catch block, the exception variable becomes implicitly final.
+
+--So we cannot reassign it.
+
+Example (Not Allowed):
+
+catch(IOException | ClassNotFoundException e) {
+
+    e = new IOException();   // Compile-time error
+
+}
+
+
+Another Rule
+
+--We cannot catch exceptions from the same hierarchy together.
+
+Example (Invalid):
+
+catch(Exception | IOException e) {
+
+}
+
+
+IOException -> child of Exception
+
+So IOException is already covered by Exception, making the second one redundant.
+
+This produces a compile-time error.
+
+
+
+2. Try-With-Resources
+
+
+--try-with-resources is a special try statement used to automatically close resources after execution.
+
+--A resource is an object that must be closed after use.
+
+Examples:
+
+File streams
+
+Database connections
+
+Network connections
+
+Scanner objects
+
+
+Syntax
+
+
+try(Resource resource = new Resource()) {
+
+    // code using resource
+
+}
+catch(Exception e) {
+
+}
+
+Java automatically calls: resource.close(); when execution finishes.
+
+
+Example:
+
+import java.io.*;
+
+class Demo {
+
+    public static void main(String[] args) {
+
+        try(FileInputStream fis = new FileInputStream("data.txt")) {
+
+            System.out.println("File opened");
+
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+}
+
+
+Requirement for Try-With-Resources:
+
+
+The object must implement: java.lang.AutoCloseable Interface.
+
+AutoCloseable Interface
+-----------------------
+
+It contains only one method:
+
+public void close() throws Exception;
+
+Any class implementing this interface can be used in try-with-resources.
+
+Example:
+
+
+FileInputStream
+
+BufferedReader
+
+Scanner
+
+Connection
+
 
