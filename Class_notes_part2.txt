@@ -4001,7 +4001,7 @@ there r two types of error in java
 1.syntax error:-improper environment and syntactical error.it results in compilation error.
 
 
-2.logical error:-sometime jvm would be unable to execute statements in the bytecode for some reasons this results in logical error.
+2.logical error (Abnormal condition):-sometime jvm would be unable to execute statements in the bytecode for some reasons this results in logical error.
 
 
 ---whenever a logical error occurs program is terminated and control comes out of the program unconditionally without mentioning from which part of the program it has come out.
@@ -4145,9 +4145,40 @@ Hence we define Exception class reff in the catch block .
                                 |
                        -------------------------
                        |                       |
-                   Exception                Error
-                       |
-                  RuntimeException
+		     Error		     Exception
+						|
+					--------------------------------------------------------
+						|                 |     |         |      |      |
+					     RuntimeException    IOE   SQLE      CNFE    FNFE   IE
+                                                  |
+                                  ---------------------------------------------
+                                  |    |      |       |       |
+                                 AE    NPE   AIOBE   NFE     IME
+                                  
+
+
+IOE(IOException)
+SQLE(SQLException)
+CNFE(ClassNotFoundException)
+FNFE(FileNotFoundException)
+IE(InteruppetedException)
+
+AE (ArithmaticException)
+NPE (NullPointerException)
+AIOBE(ArrayIndexOutOfBoundException)
+NFE(NumberFormatException)
+IME(InputMismatchException)
+
+
+
+
+
+
+
+
+
+
+
  
 ---We have five altogether five keywords in the concept of exception handling:-
 
@@ -4239,6 +4270,30 @@ Q/how can we find out which Exception comes under which category (chked or unchk
 and it gets the free pass from the compiler at compile time.
 
 ---and those class which r not a subclass of RuntimeException class is  Checked exception and  we have to  handle these Exception class object otherwise we gets a compile time error itself.
+
+
+
+
+			Object
+			   |
+			Throwable
+			   |
+		-------------------------
+		|			|
+	      Error		    Exception
+					|----------------> SQLException, IOException, IneruptedException, FileNotFoundExcept
+				RuntimeException
+                                     |
+				   ArithmaticExcep, AIOBE, NPE, NFE, IME
+
+
+
+
+
+
+
+
+
 
 
 
