@@ -4021,7 +4021,7 @@ public static void main(String[] args) {
 
 ---there r some predefined classes in java whose objects r created by jvm whenever it encounters a logical errors.Names of such classes r found under the Exception class in API.
 
---for each and every logical error there is a corresponding exception class in the java.lang package.
+--for each and every logical error(abnormal situation) there is a corresponding exception class in the java.lang package.
 
 ---whenever jvm encounters a logical error,it creats an objects of the coresponding exception class and since this this object is not explicitly handled this object reaches back to the jvm ,jvm accept this object and terminets the program .
 
@@ -4037,7 +4037,10 @@ public static void main(String[] args) {
 
 --the try keyword recognizes the exception class objects created by jvm and it get holds those objects and transfer them to the catch block.
 --in catch block we should be able to assign those objects to the appropriate reff so that they will not reach to the jvm and therefore program would not be terminated.
+
+
 ex:-
+
 class A 
 {
 public static void main(String[] args) 
@@ -4053,7 +4056,9 @@ catch(ArithmeticException ae)
 {
 System.out.println(ae);
 //System.out.println("the value of j should not be 0");
-}}}
+}
+}
+}
 
 ---in this we we can use try and catch blocks in any part of the program.
 
@@ -4173,50 +4178,57 @@ IME(InputMismatchException)
 
 
 
-
-
-
-
-
-
- 
 ---We have five altogether five keywords in the concept of exception handling:-
 
 1.try 2.catch 3.throw 4.throws 5.finally
 
----logiacal errors r of two types:-
 
-1.simple logical error:- there r some logical error which can be neglecting by the 
+
+--logiacal errors r of two types:-
+
+1.simple logical error:- 
 ----------------------- 
-jvm such error r known as simple logical error 
-ex-int x=100/0,etc;
+
+--there r some logical error which can be neglecting by the jvm such error r known as simple logical error 
+
+ex-
+
+int x=100/0 ,etc;
+
 --All the classes that represent simple logical error comes under Exception class.
 
 
-2.Serious logical error:-Some logical error can not be neglected by the jvm such ------------------------
-error is known as serious logical error.
+2.Serious logical error:-
+------------------------
+
+--Some logical error can not be neglected by the jvm such error is known as serious logical error.
+
 ex:-creation of an object of a class when there is no availabilty of memory space in the RAM.
+
 --All the classes that represent serious logiacal error r comes under Error class.
-
-
 
 
 Note:-in real time we r not permited to handle Error class object,they will be handled internally by the JVM,if we hanlde them then it means that we r not allowing object of Error class to reach jvm,in other word we r neglecting the serious logical error.which is highly dengerous.
 
+--JVM handles the Error class object by terminating the application.
 
----try and catch block r designed in such a way that try block can transfer only object of Throwable class and its subclass simmilarly catch block can recieve only object of Throwable class and its subclass.
+
+
+--try and catch block r designed in such a way that try block can transfer only object of Throwable class and its subclass simmilarly catch block can recieve only object of Throwable class and its subclass.
 
 ---that's why we can't write catch(Object o){--}
 
 --we can use catch(Throwable t){---}
---we know that throwable class is a super class of Error class also so by using
-catch(Throwable t){--} we r indirectly handling Error class objects also which would be very problematic.
+
+--we know that throwable class is a super class of Error class also so by using catch(Throwable t){--} we r indirectly handling Error class objects also which would be very problematic.
+
 --we should handle only objects created because of simple logical error,we should not handle objects created bcoz of serious logiacal errors.
+
 --thats why we never use catch(Throwable t){--}
+
 --we always use catch(Exception ee){--}
 
-
----whenever a try block has n number of catch blocks then if an exception object is created then the order of preference of the catch block is  the order in which they r present below  the try block.
+--whenever a try block has n number of catch blocks then if an exception object is created then the order of preference of the catch block is  the order in which they r present below  the try block.
 
 ex:-
 try{--}
@@ -4246,28 +4258,37 @@ note:-whenever we need to define multiple catch blocks and if catch(Exception e)
 
 
 
+Checked and Unchecked Exceptions:
+================================
 
 
-
-
----The next importent concept of exception handling is checked exception and unchecked exception.
+---The next importent concept of exception handling is checked exception and unchecked exceptions.
 
 ---as name shows checked and unchecked means checked or unchecked by the compiler at compile time.
 i.e for each and every statement which may generate an exception compiler will check whether we r handling the corresponding exception class object or not.
+
 ---in the process of checking compiler will not bother even though we don't handle object of some exception classes
+
 ---but there r some statement for which applying the concept of exception handling is mandatory at compilation time itself.if we do not handle them compiler compells us to handle them by generating a compilation error.
 
-----The exception class objects for which compiler compells us handle them r known as checked exception.
-ex-CNFException,IOException,SQLException etc..
+--The exception class objects for which compiler forces us handle them r known as checked exception.
+ex-
+
+ClassNotFoundException,
+IOException,
+SQLException etc..
 
 
----the exception class objects  for which compiler does not compells us to handle them r known as unchecked exception.
-ex-AritmeticExp,ArrOBExcep,NullPException etc.
+---the exception class objects for which compiler does not forces us to handle them r known as unchecked exception.
+ex-
+
+AritmeticExp,
+ArrOBExcep,
+NullPException etc.
 
 Q/how can we find out which Exception comes under which category (chked or unchkd)
 
---Any class which is the subclass of RuntimeException class is an Unchecked Exception 
-and it gets the free pass from the compiler at compile time.
+--Any class which is the subclass of RuntimeException class is an Unchecked Exception and it gets the free pass from the compiler at compile time.
 
 ---and those class which r not a subclass of RuntimeException class is  Checked exception and  we have to  handle these Exception class object otherwise we gets a compile time error itself.
 
@@ -4287,24 +4308,18 @@ and it gets the free pass from the compiler at compile time.
 				   ArithmaticExcep, AIOBE, NPE, NFE, IME
 
 
+throws keyword:
+---------------
+
+Consider the following programs:
 
 
-
-
-
-
-
-
-
-
-throws:-
---------
-ex:-
 class A {
     void funA() {
         System.out.println("Inside funA()");
     }
 }
+
 
 class Test {
 
@@ -4330,9 +4345,9 @@ class Test {
 }
 
 
-let us assume some programer has designed a class Test,inside that one method fun1() is there,and that method we r using in our class,now how can we know what type of exception object will be created because of the statement present in the fun1().
+let us assume some programer has designed a class Test,inside that one method fun1() is there,and that method we r using in our class, now how can we know what type of exception object will be created because of the statement present in the fun1().
 
----to solve this problem the developer himself will provide a facility i.e along with the fun defination, he will mention the type of the exception that might be raised inside the fun using throws keyword.
+---to solve this problem the developer himself will provide a facility i.e along with the fun defination, he will mention the type of the exception that might be raised inside the fun using the "throws" keyword.
 
 ---throws is a keyword using which the enduser is informed that a particular method is proven to transfer exception class object to its calling place.
 
@@ -4351,7 +4366,7 @@ void fun1(int i,int j)throws ArithmaticException,NullPointerException{
 }
 
 --since fun1() is throwing unchecked exception it is not mandatory to call fun1() inside try catch block from its calling place.
---but if we use throws Exception then it is mandatory to call fun1() inside try-catch block from its calling place bcoz throws Exception indicates that fun1() can throw checked exception as well as unchecked exception.
+--but if we use throws "Exception" then it is mandatory to call fun1() inside try-catch block from its calling place bcoz throws Exception indicates that fun1() can throw checked exception as well as unchecked exception.
 
 ex:-
 
@@ -4373,7 +4388,7 @@ note:-by seeing throws keyword along with the fun defination we can understand t
 Note:-even though throws is applicable with main() also it is highly recomended not to use throws with main().
 
 
----even though a method is throwing more than one Exception, in order to call that method we can use only one catch block with Excption class reff.....
+---even though a method is throwing more than one Exception, in order to call that method we can use only one catch block with Excption class reference.
 
 --but we will loose the chance of handling those many situations....one by one...
 
@@ -4690,6 +4705,148 @@ finally {
     if(fr != null)
         fr.close();
 }
+
+
+
+throw keyword in Java:
+======================
+
+--The throw keyword in Java is used to manually create and throw an exception from our program.
+
+--Normally, exceptions are created by JVM automatically, but sometimes we want to create our own exception based on some condition, in that case we use throw.
+
+Definition:
+
+--throw is used to explicitly throw an exception from a method or block of code.
+
+Syntax:
+-------
+
+	throw new ExceptionClass("Error message");
+
+Example:
+
+	throw new ArithmeticException("Number cannot be divided by zero");
+
+
+Example:
+
+
+
+class Test
+{
+
+static void voteTest(int age){
+
+      if(age < 18)
+        {
+            throw new ArithmeticException("You are not eligible to vote");
+        }
+
+        System.out.println("You can vote");
+
+}
+
+
+
+    public static void main(String args[])
+    {
+  
+	voteTest(10);
+  
+    }
+}
+
+Here,
+
+--JVM did not create exception. We manually created exception and propagating to the user using throw keyword.
+
+--Since we are throwing an unchecked exception, we need not intimate the caller using function signature, but if we throw a checked exception in that case we need to mention the caller also by using throws keyword with the method signature. and in order to call that method caller must either need to wrap that call inside the try and catch block or the caller can also delegate the exception handling duty to its caller using throws keyword.
+
+example:
+
+ 
+
+
+class Test
+{
+    static void voteTest(int age) throws Exception
+    {
+        if(age < 18)
+        {
+            throw new Exception("You are not eligible to vote");
+        }
+
+        System.out.println("You can vote");
+    }
+
+    public static void main(String args[])
+    {
+        try
+        {
+            voteTest(10);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Program continues...");
+    }
+}
+
+
+
+Q/- Why use throw? Why not just use if–else and print message?"
+
+
+Ans/- 
+
+Yes, we can use if–else.
+But throw is used when the situation is not normal and we want to stop the program and inform the caller that something went wrong.
+
+So the difference is:
+
+if–else				throw Exception
+
+Just prints message		Stops program
+
+Program continues		Program terminates
+
+Used for normal condition		Used for abnormal condition
+
+No error reporting		Error reporting mechanism
+
+
+Imagine a college admission system:
+
+If marks < cutoff : Show message:  Normal situation :  use if–else
+
+If documents are fake:  Stop admission process immediately : Abnormal situation : use Exception
+
+So:
+
+Normal problem : if–else
+Serious problem : Exception
+
+
+throw vs throws 
+--------------
+
+throw				throws
+
+Used to throw exception		Used to declare exception
+Used inside method		Used in method signature
+Followed by object		Followed by class name
+Example: throw new Exception()	Example: void m() throws Exception
+
+Short  Difference
+------------------
+
+You create problem: throw
+You inform others that problem may come: throws
+
+
 
 
 
