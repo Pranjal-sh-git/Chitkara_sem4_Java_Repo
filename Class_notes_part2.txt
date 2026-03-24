@@ -4499,9 +4499,8 @@ finally Keyword in Java
 
 The finally block is used with a try block to ensure that certain statements are always executed, whether an exception occurs or not.
 
-Definition
 
-The finally block contains statements that are guaranteed to execute after the execution of the try and catch blocks.UserDefined Exception:-
+--The finally block contains statements that are guaranteed to execute after the execution of the try and catch blocks.
 
 
 
@@ -4813,7 +4812,7 @@ Just prints message		Stops program
 
 Program continues		Program terminates
 
-Used for normal condition		Used for abnormal condition
+Used for normal condition	Used for abnormal condition
 
 No error reporting		Error reporting mechanism
 
@@ -5103,7 +5102,7 @@ catch(IOException | ClassNotFoundException e) {
 
 Another Rule
 
---We cannot catch exceptions from the same hierarchy together.
+--We cannot catch exceptions from the same hierarchy together.(no parent-child relationships)
 
 Example (Invalid):
 
@@ -5117,6 +5116,20 @@ IOException -> child of Exception
 So IOException is already covered by Exception, making the second one redundant.
 
 This produces a compile-time error.
+
+
+
+but this is possible:
+
+try {
+    // risky code
+}
+catch(SQLException | IOException e) {
+    System.out.println("Common Error handling for IOE and SQLE");
+}
+catch(Exception e) {
+    System.out.println("Other Error handling..");
+}
 
 
 
