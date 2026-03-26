@@ -4735,23 +4735,23 @@ Example:
 class Test
 {
 
-static void voteTest(int age){
+	static void withdraw(int balance, int amount){
+    		
+		if(amount > balance){
+        		
+			throw new RuntimeException("Insufficient balance");
+    		
+		}
 
-      if(age < 18)
-        {
-            throw new ArithmeticException("You are not eligible to vote");
-        }
-
-        System.out.println("You can vote");
+    	System.out.println("Withdraw successful");
 
 }
-
 
 
     public static void main(String args[])
     {
   
-	voteTest(10);
+	withdraw(10000,12000);
   
     }
 }
@@ -4769,28 +4769,31 @@ example:
 
 class Test
 {
-    static void voteTest(int age) throws Exception
-    {
-        if(age < 18)
-        {
-            throw new Exception("You are not eligible to vote");
-        }
 
-        System.out.println("You can vote");
-    }
+	static void withdraw(int balance, int amount) throws Exception{
+    		
+		if(amount > balance){
+        		
+			throw new Exception("Insufficient balance");
+    		
+		}
+
+    	System.out.println("Withdraw successful");
+
+}
+
 
     public static void main(String args[])
     {
-        try
-        {
-            voteTest(10);
-        }
-        catch(Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
+  	try{
+	
+		withdraw(10000,12000);
 
-        System.out.println("Program continues...");
+  	}catch(Exception e){
+
+		e.printStackTrace();
+	}
+
     }
 }
 
@@ -4826,7 +4829,7 @@ If documents are fake:  Stop admission process immediately : Abnormal situation 
 So:
 
 Normal problem : if–else
-Serious problem : Exception
+Abnormal problem : Exception
 
 
 throw vs throws 
@@ -4838,6 +4841,7 @@ Used to throw exception		Used to declare exception
 Used inside method		Used in method signature
 Followed by object		Followed by class name
 Example: throw new Exception()	Example: void m() throws Exception
+
 
 Short  Difference
 ------------------
@@ -4916,7 +4920,14 @@ Step 1
 
 Step 2
 
+
+--Define a parameterrized constructor inside that class by taking String as an argument, and pass that String to its parent class constructor.
+
+//or
+
 --Override the toString() or getMessage() method
+
+
 
 Step 3
 
@@ -4945,7 +4956,7 @@ Step 2: Create a Class That Uses This Exception
 
 class Emp {
 
-    public int getPension(int age, int sal) throws Exception {
+    public int getPension(int age, int sal) throws InvalidAgeException {
 
         int pen = 0;
 
@@ -4975,12 +4986,77 @@ class Test {
             int p = e.getPension(30, 50000);
             System.out.println("Pension = " + p);
         }
-        catch(Exception ex) {
+        catch(InvalidAgeException ex) {
             System.out.println(ex);
         }
 
     }
 }
+
+
+
+
+Password checking example:
+-------------------------
+
+
+
+InvalidPasswordException.java:
+------------------------------
+
+class InvalidPasswordException extends Exception {
+    InvalidPasswordException(String message) {
+        super(message);
+    }
+}
+
+
+
+Demo.java:
+----------
+
+
+import java.util.Scanner;
+
+class Demo {
+
+    static void checkPassword(String password) throws InvalidPasswordException {
+        
+        if(password.length() < 8) {
+            throw new InvalidPasswordException("Password must contain at least 8 characters");
+        }
+
+        boolean hasDigit = false;
+
+        for(int i = 0; i < password.length(); i++) {
+            if(Character.isDigit(password.charAt(i))) {
+                hasDigit = true;
+                break;
+            }
+        }
+
+        if(!hasDigit) {
+            throw new InvalidPasswordException("Password must contain at least one digit");
+        }
+
+        System.out.println("Password is valid");
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter password: ");
+        String pwd = sc.nextLine();
+
+        try {
+            checkPassword(pwd);
+        } 
+        catch(InvalidPasswordException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+    }
+}
+
+
 
 
 Constructor Throwing Checked Exception:
