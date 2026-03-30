@@ -4810,6 +4810,7 @@ But throw is used when the situation is not normal and we want to stop the progr
 So the difference is:
 
 if–else				throw Exception
+--------------------------------------------------
 
 Just prints message		Stops program
 
